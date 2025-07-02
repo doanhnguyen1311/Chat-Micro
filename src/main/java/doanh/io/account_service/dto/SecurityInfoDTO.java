@@ -1,11 +1,14 @@
 package doanh.io.account_service.dto;
 
-import jakarta.persistence.Embeddable;
+import lombok.*;
 
 import java.time.LocalDateTime;
-
-@Embeddable
-public class SecurityInfo {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class SecurityInfoDTO {
     private boolean isVerified;
     private boolean mfaEnabled;
     private String mfaType;

@@ -1,5 +1,7 @@
 package doanh.io.account_service.dto;
-import jakarta.persistence.Embedded;
+import doanh.io.account_service.entity.info.ProviderInfo;
+import doanh.io.account_service.entity.info.Settings;
+import doanh.io.account_service.entity.info.UserProfile;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -25,15 +27,9 @@ public class AccountDTO {
 
     private String status; // ACTIVE / SUSPENDED...
 
-    @Embedded
-    private UserProfile profile;
+    private UserProfileDTO profile;
 
-    @Embedded
-    private SecurityInfo security;
+    private ProviderInfoDTO provider;
 
-    @Embedded
-    private ProviderInfo provider;
-
-    @Embedded
-    private Settings settings;
+    private SettingsDTO settings;
 }

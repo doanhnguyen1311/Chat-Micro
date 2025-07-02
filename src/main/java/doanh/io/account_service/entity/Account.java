@@ -1,16 +1,24 @@
 package doanh.io.account_service.entity;
 
-import doanh.io.account_service.dto.ProviderInfo;
-import doanh.io.account_service.dto.SecurityInfo;
-import doanh.io.account_service.dto.Settings;
-import doanh.io.account_service.dto.UserProfile;
+import doanh.io.account_service.entity.info.ProviderInfo;
+import doanh.io.account_service.entity.info.SecurityInfo;
+import doanh.io.account_service.entity.info.Settings;
+import doanh.io.account_service.entity.info.UserProfile;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "account")
+@Table(name = "account",
+        indexes = {
+                @Index(name = "idx_email", columnList = "email"),
+                @Index(name = "idx_username", columnList = "username"),
+                @Index(name = "idx_status", columnList = "status"),
+                @Index(name = "idx_created_at", columnList = "createdAt"),
+                @Index(name = "idx_phone_number", columnList = "phoneNumber")
+        }
+)
 @Data
 public class Account {
     @Id
