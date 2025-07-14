@@ -1,0 +1,14 @@
+// common.proto
+syntax = "proto3";
+
+package account_service;
+
+message IdRequest {
+  string id = 1;
+}
+
+message APIResponse {
+  bool success = 1;
+  string message = 2;
+  int32 status_code = 3;
+}

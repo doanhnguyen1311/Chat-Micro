@@ -5,7 +5,7 @@ import doanh.io.account_service.entity.info.SecurityInfo;
 import doanh.io.account_service.entity.info.Settings;
 import doanh.io.account_service.entity.info.UserProfile;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +19,12 @@ import java.time.LocalDateTime;
                 @Index(name = "idx_phone_number", columnList = "phoneNumber")
         }
 )
-@Data
+@Getter
+@Setter
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -30,7 +35,7 @@ public class Account {
     private String password;
     private String phoneNumber;
 
-    private boolean isOnline;
+    private Boolean isOnline;
     private LocalDateTime lastSeen;
     private LocalDateTime createdAt;
     private LocalDateTime lastLoginAt;

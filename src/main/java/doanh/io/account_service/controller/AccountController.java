@@ -6,6 +6,7 @@ import doanh.io.account_service.dto.request.PasswordUpdaterRequest;
 import doanh.io.account_service.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,5 +57,19 @@ public class AccountController {
         return ResponseEntity
                 .status(res.getStatusCode())
                 .body(res);
+    }
+
+
+    // rabbit
+    private final RabbitTemplate rabbitTemplate;
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllAccounts() {
+        Object response = rabbitTemplate.convertSendAndReceive(
+                "account.rpc.exchange",    // exchange
+                "account.getAll",          // routing key
+                "{}"                    // message body (vì không cần)
+        );
+        return ResponseEntity.ok(response);
     }
 }

@@ -12,6 +12,6 @@ import lombok.*;
 public class Settings {
     private String theme;     // dark, light
     private String language;  // vi, en, etc.
-    private boolean soundOn;
-    private boolean notificationsEnabled;
+    private Boolean soundOn;
+    private Boolean notificationsEnabled;
 }

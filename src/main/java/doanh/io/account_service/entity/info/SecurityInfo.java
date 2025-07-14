@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class SecurityInfo {
-    private boolean isVerified;
-    private boolean mfaEnabled;
+    private Boolean isVerified;
+    private Boolean mfaEnabled;
     private String mfaType;
     private String mfaSecret;
     private int loginAttempts;
-    private boolean isLocked;
+    private Boolean isLocked;
     private LocalDateTime lockTime;
     private int tokenVersion;
 }
