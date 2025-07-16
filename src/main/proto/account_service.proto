@@ -15,11 +15,18 @@ service AccountService {
   rpc Update (AccountUpdateRequest) returns (AccountResponse);
   rpc Delete (AccountIdRequest) returns (AccountResponse);
   rpc UpdatePassword (PasswordUpdateRequest) returns (ApiResponse);
+  rpc GetOneWithEmailOrPhoneOrUsername (AccountDTO) returns (AccountResponse);
 }
 
 // ==== Request & Response Messages ====
 
 message Empty {}
+
+message SimpleAccountDTO{
+  string email = 1;
+  string phoneNumber = 2;
+  string username = 3;
+}
 
 message AccountIdRequest {
   string id = 1;

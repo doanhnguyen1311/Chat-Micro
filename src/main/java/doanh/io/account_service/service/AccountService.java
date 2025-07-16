@@ -258,4 +258,38 @@ public class AccountService {
                 .statusCode(200)
                 .build();
     }
+
+    @Transactional
+    public APIResponse<?> getOneWithEmailOrPhoneOrUsername(String email, String phone, String username) {
+        String input = "";
+
+        if(username != "" && username != null && !username.isEmpty()) {
+            input = username;
+        }
+        if(phone != "" && phone != null && !phone.isEmpty()) {
+            input = phone;
+        }
+        if(email != "" && email != null && !email.isEmpty()) {
+            input = email;
+        }
+        var existing = accountRepository.findByUsernameOrEmailOrPhoneNumber(input);
+
+        if(existing == null) {
+            return APIResponse.builder()
+                    .success(false)
+                    .message("Account not found!")
+                    .data(null)
+                    .statusCode(400)
+                    .build();
+        }
+
+        var res = accountMapper.toAccountDTO(existing);
+
+        return APIResponse.builder()
+                .success(true)
+                .message("Account found!")
+                .data(res)
+                .statusCode(200)
+                .build();
+    }
 }
