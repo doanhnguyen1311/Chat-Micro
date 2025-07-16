@@ -284,7 +284,7 @@ public class AuthenticationService {
                     .build();
         }
         else{
-            if(!isExpiry){
+            if(isExpiry){
                 return APIResponse.<AuthenticatedResponse>builder()
                         .message("refresh")
                         .statusCode(200)

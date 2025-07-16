@@ -58,6 +58,7 @@ public class AuthenticationController {
         responseCookie.addCookie(token);
 
         if (response.isSuccess()) {
+            response.getData().setToken(null);
             return ResponseEntity.ok(response);
         } else {
             int statusCode = response.getStatusCode() != 0 ? response.getStatusCode() : HttpStatus.BAD_REQUEST.value();
@@ -123,8 +124,10 @@ public class AuthenticationController {
                 .build());
     }
 
-    @GetMapping("/account/{id}")
-    public ResponseEntity<APIResponse<?>> getAccountById(@PathVariable("id") String id) {
+    @GetMapping("/my-info")
+    public ResponseEntity<APIResponse<?>> getAccountById(@CookieValue("accessToken") String accessToken) throws ParseException {
+        String id = userIdFromCookie(accessToken);
+
         APIResponse<?> response = authenticationService.getAccount(id);
         return ResponseEntity.ok(response);
     }
@@ -183,6 +186,7 @@ public class AuthenticationController {
     public ResponseEntity<APIResponse<?>> loginWithToken(@CookieValue("accessToken") String accessToken, @CookieValue("deviceId") String deviceId) {
         try{
             APIResponse<AuthenticatedResponse> res = authenticationService.introspect(accessToken, deviceId);
+            res.setData(null);
             return ResponseEntity.status(res.getStatusCode()).body(res);
         }
         catch (Exception e) {
