@@ -1,0 +1,95 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+option java_package = "doanh.io.account_service.grpc";
+option java_multiple_files = true;
+
+package account_service;
+
+service AccountService {
+  // ✅ sửa dòng này: GetAll trả về stream
+  rpc GetAll (Empty) returns (stream AccountDTO);
+
+  rpc GetOne (AccountIdRequest) returns (AccountResponse);
+  rpc Add (AccountDTO) returns (AccountResponse);
+  rpc Update (AccountUpdateRequest) returns (AccountResponse);
+  rpc Delete (AccountIdRequest) returns (AccountResponse);
+  rpc UpdatePassword (PasswordUpdateRequest) returns (ApiResponse);
+  rpc GetOneWithEmailOrPhoneOrUsername (AccountDTO) returns (AccountResponse);
+}
+
+// ==== Request & Response Messages ====
+
+message Empty {}
+
+message SimpleAccountDTO{
+  string email = 1;
+  string phoneNumber = 2;
+  string username = 3;
+}
+
+message AccountIdRequest {
+  string id = 1;
+}
+
+message AccountUpdateRequest {
+  string id = 1;
+  AccountDTO account = 2;
+}
+
+message PasswordUpdateRequest {
+  string id = 1;
+  string oldPassword = 2;
+  string newPassword = 3;
+}
+
+message AccountResponse {
+  AccountDTO account = 1;
+  string message = 2;
+  bool success = 3;
+  int32 statusCode = 4;
+}
+
+message ApiResponse {
+  string message = 1;
+  bool success = 2;
+  int32 statusCode = 3;
+  AccountDTO data = 4;
+}
+
+// ==== DTO ====
+
+message AccountDTO {
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string phoneNumber = 4;
+  string password = 5;
+  string status = 6;
+
+  UserProfileDTO profile = 8;
+  SettingsDTO settings = 9;
+  ProviderInfoDTO provider = 10;
+}
+
+message UserProfileDTO {
+  string fullName = 1;
+  string avatarUrl = 2;
+  string coverPhotoUrl = 3;
+  string bio = 4;
+  string gender = 5;
+  string location = 6;
+  string website = 7;
+}
+
+message SettingsDTO {
+  string theme = 1;
+  string language = 2;
+  bool soundOn = 3;
+  bool notificationsEnabled = 4;
+}
+
+message ProviderInfoDTO {
+  string provider = 1;
+  string providerId = 2;
+}

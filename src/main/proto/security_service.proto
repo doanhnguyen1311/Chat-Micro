@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+import "common.proto";
+
+option java_multiple_files = true;
+option java_package = "doanh.io.account_service.grpc";
+option java_outer_classname = "SecurityServiceProto";
+
+package account_service;
+
+service SecurityService {
+  rpc GetTokenVersion (IdRequest) returns (TokenVersionResponse);
+  rpc IncreaseTokenVersion (IdRequest) returns (APIResponse);
+  rpc IncrementLoginAttempts (EmailRequest) returns (APIResponse);
+  rpc ResetLoginAttempts (IdRequest) returns (APIResponse);
+  rpc LockAccount (IdRequest) returns (APIResponse);
+  rpc UnlockAccount (IdRequest) returns (APIResponse);
+  rpc VerifyEmail (IdRequest) returns (APIResponse);
+  rpc EnableMFA (EnableMFARequest) returns (APIResponse);
+  rpc DisableMFA (IdRequest) returns (APIResponse);
+  rpc GetSecurityInfo (EmailRequest) returns (SecurityInfoDTO);
+}
+
+message EmailRequest {
+  string email = 1;
+}
+
+message TokenVersionResponse {
+  int32 token_version = 1;
+}
+
+message BoolResponse {
+  bool result = 1;
+}
+
+message EnableMFARequest {
+  string id = 1;
+  string mfa_type = 2;
+  string mfa_secret = 3;
+}
+
+message SecurityInfoDTO {
+  bool is_verified = 1;
+  bool mfa_enabled = 2;
+  string mfa_type = 3;
+  string mfa_secret = 4;
+  int32 login_attempts = 5;
+  bool is_locked = 6;
+  string lock_time = 7; // ISO-8601, optional
+  int32 token_version = 8;
+}

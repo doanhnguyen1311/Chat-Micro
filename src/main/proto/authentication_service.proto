@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package account_service;
+
+import "common.proto";
+
+option java_multiple_files = true;
+option java_package = "doanh.io.account_service.grpc";
+option java_outer_classname = "AuthenticationServiceProto";
+
+service AuthenticationService {
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc Logout (IdRequest) returns (APIResponse);
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string account_id = 1;
+  bool is_verified = 2;
+  bool mfa_enabled = 3;
+  string mfa_type = 4;
+  bool success = 5;
+  string message = 6;
+}
