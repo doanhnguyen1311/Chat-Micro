@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/auth")
+@RequestMapping("")
 @Slf4j
 public class AuthenticationController {
 
@@ -37,28 +37,39 @@ public class AuthenticationController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<APIResponse<?>> login(@RequestBody LoginRequest loginRequest, HttpServletResponse responseCookie) {
-        String device = UUID.randomUUID().toString();
-        loginRequest.setDeviceId(device);
+    public ResponseEntity<APIResponse<?>> login(
+            @RequestBody LoginRequest loginRequest,
+            HttpServletResponse responseCookie,
+            @CookieValue(value = "deviceId", required = false) String deviceId
+    ) {
+        // Nếu chưa có deviceId thì tạo mới
+        if (deviceId == null || deviceId.isBlank()) {
+            deviceId = UUID.randomUUID().toString();
+
+            Cookie deviceIdCookie = new Cookie("deviceId", deviceId);
+            deviceIdCookie.setHttpOnly(true);
+            deviceIdCookie.setSecure(true);
+            deviceIdCookie.setPath("/");
+            deviceIdCookie.setMaxAge(3600 * 24 * 60); // 60 ngày
+
+            responseCookie.addCookie(deviceIdCookie);
+        }
+
+        loginRequest.setDeviceId(deviceId);
+
         APIResponse<AuthenticatedResponse> response = authenticationService.Login(loginRequest);
 
-        Cookie token = new Cookie("accessToken", response.getData().getToken());
-        token.setHttpOnly(true);
-        token.setSecure(true);
-        token.setPath("/");
-        token.setMaxAge(3600 * 24 * 2);
+        if (response.getData() != null) {
+            Cookie token = new Cookie("accessToken", response.getData().getToken());
+            token.setHttpOnly(true);
+            token.setSecure(true);
+            token.setPath("/");
+            token.setMaxAge(3600 * 24 * 2); // 2 ngày
 
-        Cookie deviceId = new Cookie("deviceId", device);
-        deviceId.setHttpOnly(true);
-        deviceId.setSecure(true);
-        deviceId.setPath("/");
-        deviceId.setMaxAge(3600 * 24 * 60);
-
-        responseCookie.addCookie(deviceId);
-        responseCookie.addCookie(token);
+            responseCookie.addCookie(token);
+        }
 
         if (response.isSuccess()) {
-            response.getData().setToken(null);
             return ResponseEntity.ok(response);
         } else {
             int statusCode = response.getStatusCode() != 0 ? response.getStatusCode() : HttpStatus.BAD_REQUEST.value();
@@ -66,10 +77,11 @@ public class AuthenticationController {
         }
     }
 
+
     @PostMapping("/refresh-token")
     public ResponseEntity<APIResponse<?>> refreshToken(
-            @RequestParam("accessToken") String accessToken,
-            @RequestParam("deviceId") String deviceId) {
+            @CookieValue("accessToken") String accessToken,
+            @CookieValue("deviceId") String deviceId) {
         try {
             String token = authenticationService.refreshToken(accessToken, deviceId);
             if (token != null) {
@@ -93,7 +105,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/verify-token")
-    public ResponseEntity<APIResponse<?>> verifyToken(@RequestParam("token") String token) {
+    public ResponseEntity<APIResponse<?>> verifyToken(@CookieValue("accessToken") String token) {
         try {
             APIResponse<?> response = authenticationService.verifyToken(token);
             if (response.isSuccess()) {
@@ -114,7 +126,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/is-token-expiry")
-    public ResponseEntity<APIResponse<Boolean>> isTokenExpiry(@RequestParam("token") String token) {
+    public ResponseEntity<APIResponse<Boolean>> isTokenExpiry(@CookieValue("accessToken") String token) {
         boolean isExpired = authenticationService.isTokenExpiry(token);
         return ResponseEntity.ok(APIResponse.<Boolean>builder()
                 .data(isExpired)
@@ -133,7 +145,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<APIResponse<?>> logout(@CookieValue("accessToken") String accessToken, @RequestParam("deviceId") String deviceId) {
+    public ResponseEntity<APIResponse<?>> logout(@CookieValue("accessToken") String accessToken, @CookieValue("deviceId") String deviceId) {
         try {
             String userId = userIdFromCookie(accessToken);
 
@@ -155,7 +167,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/logout-all-device")
-    public ResponseEntity<APIResponse<?>> logoutAllDevice(@CookieValue("accesssToken") String accessToken, @RequestParam("deviceId") String deviceId) {
+    public ResponseEntity<APIResponse<?>> logoutAllDevice(@CookieValue(value = "accessToken", required = false) String accessToken, @CookieValue(value = "deviceId", required = false) String deviceId) {
         try{
             String userId = userIdFromCookie(accessToken);
 
@@ -183,13 +195,48 @@ public class AuthenticationController {
     }
 
     @PostMapping("/auto-login")
-    public ResponseEntity<APIResponse<?>> loginWithToken(@CookieValue("accessToken") String accessToken, @CookieValue("deviceId") String deviceId) {
-        try{
+    public ResponseEntity<APIResponse<?>> loginWithToken(
+            @CookieValue(value = "accessToken", required = false) String accessToken,
+            @CookieValue(value = "deviceId", required = false) String deviceId,
+            HttpServletResponse responseCookie
+    ) {
+        try {
+            // Nếu chưa có deviceId -> tạo mới + gắn cookie
+            if (deviceId == null || deviceId.isBlank()) {
+                deviceId = UUID.randomUUID().toString();
+
+                Cookie deviceIdCookie = new Cookie("deviceId", deviceId);
+                deviceIdCookie.setHttpOnly(true);
+                deviceIdCookie.setSecure(true);
+                deviceIdCookie.setPath("/");
+                deviceIdCookie.setMaxAge(3600 * 24 * 60); // 60 ngày
+
+                responseCookie.addCookie(deviceIdCookie);
+            }
+            if(accessToken == null || accessToken.isEmpty() || accessToken == "") {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(APIResponse.builder()
+                                .data(null)
+                                .success(false)
+                                .message("Invalid access token")
+                        .build());
+            }
+
             APIResponse<AuthenticatedResponse> res = authenticationService.introspect(accessToken, deviceId);
-            res.setData(null);
+
+            if(!res.isSuccess()){
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(res);
+            }
+
+            Cookie token = new Cookie("accessToken", res.getData().getToken());
+            token.setHttpOnly(true);
+            token.setSecure(true);
+            token.setPath("/");
+            token.setMaxAge(3600 * 24 * 2);
+            responseCookie.addCookie(token); // <-- THIẾU DÒNG NÀY TRƯỚC ĐÂY
+
+            res.setData(null); // Không trả token ra ngoài
             return ResponseEntity.status(res.getStatusCode()).body(res);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Error during login with token: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(APIResponse.builder()
@@ -199,5 +246,28 @@ public class AuthenticationController {
                             .build());
         }
     }
+
+    @GetMapping("/get-device")
+    public ResponseEntity<APIResponse<?>> getDevice(@CookieValue(value = "deviceId", required = false) String deviceId, HttpServletResponse responseCookie) {
+        if(deviceId == null || deviceId.isBlank()) {
+            deviceId = UUID.randomUUID().toString();
+            Cookie deviceIdCookie = new Cookie("deviceId", deviceId);
+            deviceIdCookie.setHttpOnly(true);
+            deviceIdCookie.setSecure(true);
+            deviceIdCookie.setPath("/");
+            deviceIdCookie.setMaxAge(3600 * 24);
+            responseCookie.addCookie(deviceIdCookie);
+        }
+
+        return ResponseEntity.ok(
+                APIResponse.builder()
+                        .data(deviceId)
+                        .success(true)
+                        .message("Get device successfully.")
+                        .statusCode(200)
+                        .build()
+        );
+    }
+
 
 }

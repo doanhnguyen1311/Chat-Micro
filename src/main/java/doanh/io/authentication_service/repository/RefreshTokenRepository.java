@@ -24,4 +24,6 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long
     void deleteByUserIdAndIsDefaultDeviceFalse(String userId);
 
     Optional<RefreshToken> findByUserIdAndIsDefaultDeviceTrue(String userId);
+
+    boolean existsByUserIdAndIsDefaultDeviceTrue(String userId);
 }
