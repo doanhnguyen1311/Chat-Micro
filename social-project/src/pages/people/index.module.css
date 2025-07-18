@@ -1,0 +1,235 @@
+.header {
+    margin-bottom: 32px;
+}
+
+.headerTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #e7edf2;
+}
+
+.title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #7c3aed;
+    border-bottom: 2px solid #7c3aed;
+    margin: 0;
+    padding: 12px 8px;
+    cursor: pointer;
+}
+
+.headerBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e7edf2;
+}
+
+.searchContainer {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 8px;
+}
+
+.searchInput {
+    width: 42%;
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 999px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.searchInput:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.searchButton {
+    background-color: #8224e3;
+    background-image: linear-gradient(90deg, #8224e3 0, #a84aff 50%, #8224e3 100%);
+    background-size: 200%;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 39px;
+    height: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.searchButton:hover {
+    background-color: #8224e3;
+    background-position: right center;
+    box-shadow: 0 2px 5px -2px #8224e3;
+    transition: all 750ms ease;
+}
+
+.searchIcon {
+    width: 16px;
+    height: 16px;
+}
+
+.selectFilter {
+    max-width: 250px;
+    border: 1px solid #e7edf2;
+    padding: .375rem 1rem;
+    line-height: 26px;
+    border-radius: 1.25rem;
+    height: 2.5rem;
+    transition: all 0.3s ease;
+}
+
+.selectFilter:focus {
+    border: 1px solid #8224e3;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+@media (max-width: 768px) {
+    .peopleGrid {
+    grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .peopleGrid {
+    grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* People Card Styles */
+.peopleGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.peopleCard {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 15px 15px 20px rgba(58,46,68,.04);
+    padding: 1.5rem;
+    text-align: center;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.peopleCard:hover {
+    box-shadow: 15px 15px 20px rgba(58,46,68,.08);
+    cursor: pointer;
+}
+
+/* Avatar Styles */
+.avatarContainer {
+    margin-bottom: 1rem;
+}
+
+.avatar {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    margin: 0 auto;
+    object-fit: cover;
+    display: block;
+}
+
+/* User Info Styles */
+.userName {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 0.5rem 0;
+}
+
+.activeStatus {
+    font-size: 12px;
+    color: #bbbbcf;
+    margin: 0 0 1rem 0;
+}
+
+/* Stats Styles */
+.statsContainer {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.statItem {
+    text-align: center;
+}
+
+.statNumber {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1.2;
+}
+
+.statLabel {
+    font-size: 12px;
+    color: #bbbbcf;
+    margin-top: 0.25rem;
+}
+
+/* Action Button Styles */
+.actionButton {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 2px solid #8224e3;
+    font-weight: 500;
+    transition: all 0.2s;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.profileButton {
+    color: #8224e3;
+}
+
+.profileButton:hover {
+    border: 2px solid #8224e3;
+    background-color: #8224e3;
+    color: #fff;
+}
+
+.cancelButton {
+    color: #8224e3;
+}
+
+.cancelButton:hover {
+    border: 2px solid #8224e3;
+    background-color: #8224e3;
+    color: #fff;
+}
+
+.actionButton:focus {
+    outline: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .peopleCard {
+    padding: 1rem;
+    }
+    
+    .avatar {
+    width: 4rem;
+    height: 4rem;
+    }
+    
+    .statsContainer {
+    gap: 1.5rem;
+    }
+    
+    .statNumber {
+    font-size: 1.25rem;
+    }
+}

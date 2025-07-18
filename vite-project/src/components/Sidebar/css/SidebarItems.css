@@ -1,0 +1,18 @@
+.menu-nav.text-green::before {
+    content: "";
+    height: 24px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 4px;
+    background-color: var(--green-color);
+}
+
+.dropdown-profile-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 140px;
+    animation: DropDownSlide 0.3s ease-out both;
+    z-index: 1000;
+}

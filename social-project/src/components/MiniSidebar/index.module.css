@@ -1,0 +1,94 @@
+.sidebar {
+    width: 100%;
+    max-width: 80px;
+    background: #f8f8fa;
+    text-align: center;
+}
+
+.header {
+    background-color: #383A45;
+    background-image: linear-gradient(135deg, #52545F 0%, #383A45 50%);
+}
+
+.logo {
+    color: white;
+    padding: 19px;
+}
+
+.circle {
+    width: 30px;
+    height: 40px;
+    background: transparent;
+    margin: 0 auto;
+}
+
+.logo h1 {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.profileCard {
+    position: relative;
+    background: #fff;
+    border-radius: 1rem;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    width: 60%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+}
+
+.profileCard h2 {
+    font-weight: 500;
+}
+
+.role {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+    color: #888;
+    font-size: 0.9rem;
+    border-top: 1px solid #eaeaf1;
+    padding-top: 12px;
+}
+
+.menu {
+    padding: 3rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    row-gap: 3rem;
+}
+
+.menuItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 70px;
+    color: #999;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.menuItem:hover {
+    color: #6a0dad;
+}
+
+.active {
+    color: #6a0dad;
+    font-weight: bold;
+}

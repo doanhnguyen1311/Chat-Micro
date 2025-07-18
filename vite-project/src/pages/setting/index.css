@@ -1,0 +1,19 @@
+.dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 128px;
+    animation: DropDownSlide 0.3s ease-out both;
+    z-index: 1000;
+}
+
+@keyframes DropDownSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

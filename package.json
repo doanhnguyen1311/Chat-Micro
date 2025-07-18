@@ -1,0 +1,12 @@
+{
+  "name": "delichatfe",
+  "version": "1.0.0",
+  "scripts": {
+    "dev:vite": "cd vite-project && npm run dev",
+    "dev:social": "cd social-project && npm run dev",
+    "dev": "concurrently \"npm run dev:vite\" \"npm run dev:social\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}

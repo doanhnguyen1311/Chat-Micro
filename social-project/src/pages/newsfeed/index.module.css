@@ -1,0 +1,378 @@
+.editor {
+    width: 90%;
+    padding: 40px 32px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.input {
+    border: 1px solid #e7edf2;
+    width: 100%;
+    padding: 12px;
+    border-radius: 999px;
+}
+
+.expandedSection {
+    margin-top: 12px;
+}
+
+.actions {
+    padding: 12px 0 0 0;
+    border-top: 1px solid #e7edf2;
+}
+
+.attachBtn {
+    color: #8b5cf6;
+    font-size: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bottomRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e7edf2;
+}
+
+.select {
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid #e7edf2;
+}
+
+.buttons {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.cancelBtn {
+    background: none;
+    color: #8b5cf6;
+    border: none;
+    cursor: pointer;
+}
+
+.cancelBtn:hover {
+    text-decoration: underline;
+}
+
+.postBtn {
+    background-color: #8224e3;
+    background-image: linear-gradient(90deg, #8224e3 0, #a84aff 50%, #8224e3 100%);
+    background-size: 200%;
+    color: white;
+    padding: .375rem 2rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+}
+
+.postBtn:hover {
+    background-color: #8224e3;
+    background-position: right center;
+    box-shadow: 0 2px 5px -2px #8224e3;
+    transition: all 750ms ease;
+}
+
+.activity {
+    padding-top: 40px;
+}
+
+.activity_list {
+    position: relative;
+    padding: 0;
+}
+
+.activity_list::before {
+    content: "";
+    display: block;
+    background: #e7edf2;
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    left: 20px;
+    top: 2px;
+    z-index: 0;
+    opacity: .7;
+}
+
+.activity_item {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+    border: none !important;
+}
+
+.item_avatar {
+    margin: 0;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.activity_content {
+    margin-left: 55px;
+    position: relative;
+}
+
+.activity_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .75rem;
+    line-height: 1.75;
+}
+
+.post_meta {
+    font-size: 14px;
+}
+
+.post_meta p {
+    color: #626276;
+}
+
+.post_meta p span{
+    color: #29292d;
+}
+
+.date {
+    font-size: 90%;
+    color: #bbbbcf;
+}
+
+.more_icon {
+    display: flex;
+    border-radius: 50%;
+    padding: 8px;
+    border: 1px solid #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* position: relative; */
+}
+
+.more_icon:hover {
+    border: 1px solid #e7edf2;
+}
+
+.menu {
+    background-color: #fff;
+    border: 1px solid #e7edf2;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    width: 160px;
+    position: absolute;
+    top: 6px;
+    right: 36px;
+    z-index: 10;
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.menu_item {
+    padding: 10px 16px;
+    color: #222;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.menu_first {
+    border-bottom: 1px solid #e7edf2;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.menu_second {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.menu_item:hover {
+    background-color: #f5f5f5;
+}
+
+.activity_container {
+    box-sizing: border-box;
+}
+
+.activity_inner_text {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: .5rem;
+}
+
+.activity_media_list {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    max-width: 75%;
+    width: 100%;
+}
+
+.media_list_item {
+    padding-top: .5rem !important;
+    display: block;
+    width: 100%;
+}
+
+.media_item_thumbnail { 
+    box-shadow: 0 16px 25px -23px #000;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 70%;
+}
+
+.media_item_thumbnail > img {
+    object-fit: cover;
+    border-radius: 12px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.media_item_thumbnail > img:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: .5s;
+    box-sizing: border-box;
+}
+
+.activity_action {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 1rem;
+    padding: 20px 0;
+    border-top: 1px solid #e7edf2;
+    border-bottom: 1px solid #e7edf2;
+}
+
+.generic_button_reaction {
+    color: #8224e3;
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+}
+
+.generic_button_comment {
+    font-size: 14px;
+    color: #83839f;
+    cursor: pointer;
+    position: relative;
+}
+
+.generic_button_share {
+    font-size: 14px;
+    color: #83839f;
+    cursor: pointer;
+    position: relative;
+}
+
+.comment_count {
+    padding: 0px 8px;
+    border: 1px solid #e7edf2;
+    border-radius: 999px;
+}
+
+.reactionWrapper {
+    position: relative;
+}
+
+.reaction_popup {
+    position: absolute;
+    top: -56px;
+    left: 0;
+    display: flex;
+    gap: 8px;
+    background: #fff;
+    border-radius: 30px;
+    padding: 8px 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+}
+
+.reaction_icon {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.reaction_icon:hover {
+    transform: scale(1.2);
+}
+
+.reaction_icon_selected {
+    width: 18px;
+    height: 18px;
+}
+
+.comment_editor {
+    display: flex;
+    gap: 16px;
+}
+
+.comment {
+    width: 100%;
+}
+
+.comment_avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.comment_input {
+    width: 95%;
+    border-radius: 999px;
+    border: 1px solid #e7edf2;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+}
+
+.shareMenu {
+    position: absolute;
+    bottom: 36px;
+    left: -4px;
+    background-color: #fff;
+    border: 1px solid #e7edf2;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    width: 160px;
+    z-index: 10;
+    font-family: inherit;
+    font-size: 12px;
+}

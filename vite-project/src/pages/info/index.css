@@ -1,0 +1,27 @@
+.bg-info-img {
+    height: 160px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.user-profile-img .overlay-content {
+    background: linear-gradient(180deg,#00000080 10%,#0000 60%,#00000080);
+    color: #fff9;
+    content: "";
+    display: flex;
+    flex-direction: column;
+    height: 160px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+}
+
+.info-container {
+    margin-top: -4rem;
+    z-index: 1000;
+    position: relative;
+    border-bottom: 1px solid #eaeaf1;
+    padding: 24px;
+}
