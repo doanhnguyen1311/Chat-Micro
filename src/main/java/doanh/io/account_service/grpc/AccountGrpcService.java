@@ -20,6 +20,7 @@ public class AccountGrpcService extends AccountServiceGrpc.AccountServiceImplBas
         List<doanh.io.account_service.dto.AccountDTO> list =
                 (List<doanh.io.account_service.dto.AccountDTO>) apiResponse.getData();
 
+
         for (doanh.io.account_service.dto.AccountDTO account : list) {
             AccountDTO.Builder accountBuilder = AccountDTO.newBuilder()
                     .setId(account.getId())
@@ -124,6 +125,17 @@ public class AccountGrpcService extends AccountServiceGrpc.AccountServiceImplBas
         var apiResponse = accountService.getOneWithEmailOrPhoneOrUsername(request.getEmail(), request.getPhoneNumber(), request.getUsername());
         doanh.io.account_service.dto.AccountDTO accountDto =
                 (doanh.io.account_service.dto.AccountDTO) apiResponse.getData();
+
+        if (apiResponse.getData() == null) {
+            responseObserver.onNext(AccountResponse.newBuilder()
+                    .setSuccess(false)
+                    .setMessage("Tài khoản không tồn tại.")
+                    .setStatusCode(404)
+                    .build());
+            responseObserver.onCompleted();
+            return;
+        }
+
 
         AccountDTO.Builder accountBuilder = AccountDTO.newBuilder()
                 .setId(accountDto.getId())
