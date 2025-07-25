@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { EllipsisVertical, ThumbsUp, CornerUpLeft, MessageCircleMore } from 'lucide-react';
 import image from '../../../assets/imgs/tindepchai.jpg';
+import avatar from '../../../assets/imgs/avagroup1.jpg';
 import like from '../../../assets/imgs/like.jpg';
 import love from '../../../assets/imgs/love.png';
 import haha from '../../../assets/imgs/haha.jpg';
@@ -79,8 +80,8 @@ const Activity: React.FC = () => {
                 <li className={styles.activity_item}>
                     <div className={styles.activity_avatar}>
                         <img
-                            src="https://randomuser.me/api/portraits/women/44.jpg"
-                            alt="Joseph"
+                            src={avatar}
+                            alt="avatar"
                             className={styles.item_avatar}
                         />
                     </div>
@@ -195,8 +196,8 @@ const Activity: React.FC = () => {
                                 <div className={styles.comment_editor}>
                                     <div>
                                         <img
-                                            src="https://randomuser.me/api/portraits/women/44.jpg"
-                                            alt="Joseph"
+                                            src={avatar}
+                                            alt="avatar"
                                             className={styles.comment_avatar}
                                         />
                                     </div>

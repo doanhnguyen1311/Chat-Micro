@@ -8,6 +8,10 @@ import NewsFeed from "../pages/newsfeed";
 import Watch from "../pages/watch";
 import People from "../pages/people";
 import GroupPage from "../pages/group";
+import MyProfile from "../pages/myProfile";
+import MyActivity from "../pages/myActivity";
+import MyFriends from "../pages/myFriends";
+import MyGroups from "../pages/myGroups";
 
 const AppRoutes: FC = () => {
     return (
@@ -24,7 +28,10 @@ const AppRoutes: FC = () => {
                         <Route path="groups" element={<GroupPage />} />
                     </Route>
                     <Route element={<AuthLayout />}>
-
+                        <Route path="my-profile" element={<MyProfile />} />
+                        <Route path="my-activity" element={<MyActivity />} />
+                        <Route path="my-friends" element={<MyFriends />} />
+                        <Route path="my-groups" element={<MyGroups />} />
                     </Route>
                 </Route>
             </Routes>

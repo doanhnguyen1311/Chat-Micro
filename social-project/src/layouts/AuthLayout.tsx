@@ -2,6 +2,9 @@ import { Outlet } from "react-router-dom"
 import MessengerSidebar from "../components/Messenger"
 import Header from "../components/Header"
 import MiniSidebar from "../components/MiniSidebar"
+import SubHeader from "../components/SubHeader"
+import MyPhoto from "../components/MyPhoto"
+import RecentActivity from "../components/Activity"
 
 const AuthLayout = () => {
     return (
@@ -11,11 +14,11 @@ const AuthLayout = () => {
                 <div className="bg-white h-100vh w-100 hide-scrollbar" style={{overflowY: 'auto'}}>
                     <Header />
                     <div>
-                        {/* Sub Header */}
-                        <div className="d-flex">
-                            {/* Photo */}
+                        <SubHeader />
+                        <div className="d-flex" style={{width: '1140px', margin: 'auto'}}>
+                            <MyPhoto />
                             <Outlet />
-                            {/* Recent Activity */}
+                            <RecentActivity />
                         </div>
                     </div>
                 </div>

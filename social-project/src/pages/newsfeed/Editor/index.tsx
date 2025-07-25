@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Paperclip } from 'lucide-react';
+import avatar from '../../../assets/imgs/avagroup1.jpg';
 import styles from '../index.module.css';
 
 const Editor: React.FC = () => {
@@ -8,8 +9,8 @@ const Editor: React.FC = () => {
         <div className={styles.editor}>
                 <div className={styles.container}>
                     <img
-                        src="https://randomuser.me/api/portraits/women/44.jpg"
-                        alt="Joseph"
+                        src={avatar}
+                        alt="avatar"
                         className={styles.avatar}
                     />
                     <input

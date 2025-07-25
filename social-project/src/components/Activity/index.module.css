@@ -1,0 +1,99 @@
+.container {
+    width: 100%;
+    max-width: 300px;
+    background-color: #ffffff;
+    padding: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #6b6b6b;
+    margin: 0 0 8px 0;
+    letter-spacing: 0.3px;
+}
+
+.underline {
+    width: 40px;
+    height: 3px;
+    background-color: #8b5cf6;
+    border-radius: 2px;
+}
+
+.activityList {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+}
+
+.activityList::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 0px;
+    bottom: 0px;
+    width: 1px;
+    background-color: #e0e0e0;
+    z-index: 0;
+}
+
+.activityItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.bullet {
+    height: 4px;
+    width: 4px;
+    border: 2px solid #fff;
+    background-color: #8224e3;
+    border-radius: 50%;
+    margin-top: 8px;
+    flex-shrink: 0;
+    position: relative;
+    box-shadow: 0 2px 3px rgba(58,46,68,.08);
+    z-index: 2;
+}
+
+.content {
+    flex: 1;
+}
+
+.activityText {
+    line-height: 1.5;
+    margin-bottom: 4px;
+}
+
+.username {
+    font-weight: 600;
+    color: #333333;
+    font-size: 14px;
+}
+
+.action {
+    color: #666666;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.target {
+    font-weight: 600;
+    color: #333333;
+    font-size: 14px;
+    margin-top: 2px;
+}
+
+.timestamp {
+    font-size: 12px;
+    color: #999999;
+    font-weight: 400;
+}

@@ -16,6 +16,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .input {
@@ -134,6 +135,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .activity_content {
@@ -353,6 +355,7 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .comment_input {

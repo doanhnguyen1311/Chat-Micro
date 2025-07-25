@@ -1,0 +1,91 @@
+.container {
+    padding: 30px 30px 70px 30px;
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 1.5rem;
+    gap: 20px;
+}
+
+.tab {
+    padding: 8px;
+    cursor: pointer;
+    color: #29292d;
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.tab:hover {
+    transition: .5s;
+    color: #8224e3;
+}
+
+.active {
+    color: #8224e3;
+    font-weight: 600;
+}
+
+.active::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #8224e3;
+}
+
+.selectContainer {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: end;
+}
+
+.select {
+    max-width: 250px;
+    border: 1px solid #e7edf2;
+    background-color: rgba(0,0,0,0);
+    padding: .375rem 1rem;
+    border-radius: 1.25rem;
+    height: 2.5rem;
+    padding-right: calc(1rem + 1em);
+    line-height: 26px;
+    font-family: inherit;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #e7edf2;
+    margin-bottom: 1.5rem;
+}
+
+.messages {
+    display: flex;
+    border-top: 2px solid #8224e3 !important;
+    background-color: #fff;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    position: relative;
+    border: 1px solid #e7edf2;
+    border-radius: 12px;
+    box-shadow: 0 8px 6px -6px rgba(58,46,68,.05);
+}
+
+.icon {
+    color: #8224e3;
+    margin-right: .375rem;
+}
+
+.messages p {
+    font-size: 14px;
+    color: #626276;
+}
+
+.groupsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 24px;
+}

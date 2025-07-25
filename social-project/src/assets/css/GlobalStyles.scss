@@ -351,6 +351,13 @@ select {
 	flex-direction: row !important;
 }
 
+.row {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+
 .col-lg-8 {
 	flex: 0.7;
     max-width: 66.666667%;
@@ -359,6 +366,18 @@ select {
 .col-lg-4 {
 	flex: 0.3;
     max-width: 33.333333%;
+}
+
+.col-lg-3 {
+	-ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.col-lg-6 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
 }
 
 .gap-4px {
@@ -648,6 +667,11 @@ select {
 
 .border-bottom-gray {
 	border-bottom: 1px solid #eaeaf1;
+}
+
+.border-x-primary {
+	border-right: 1px solid #e7edf2;
+	border-left: 1px solid #e7edf2;
 }
 
 /* Position */
