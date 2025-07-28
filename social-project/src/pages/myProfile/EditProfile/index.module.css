@@ -1,0 +1,131 @@
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.divider {
+    border-top: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.fieldSet {
+    padding-left: 25%;
+    order: 1;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.label {
+    position: absolute;
+    left: 0;
+    width: 25%;
+    padding-right: 1rem;
+    text-align: right;
+    margin-top: .775rem;
+    font-weight: 600;
+    display: block;
+    max-width: 100%;
+    line-height: inherit;
+    color: inherit;
+    white-space: normal;
+    box-sizing: border-box;
+}
+
+.required {
+    color: #888;
+    font-weight: normal;
+    font-size: 0.85rem;
+    margin-left: 4px;
+}
+
+.input, .select {
+    width: 100%;
+    background-color: #f7f7f7;
+    display: block;
+    height: 2.5rem;
+    padding: .375rem 1rem;
+    border: 1px solid rgba(0,0,0,0);
+    border-radius: 1.25rem;
+    outline: none !important;
+    line-height: 26px;
+    color: #626276;
+    overflow: visible;
+    font-family: inherit;
+    font-size: inherit;
+    word-wrap: break-word;
+    box-sizing: border-box;
+}
+
+.dobGroup {
+    display: flex;
+    gap: 10px;
+}
+
+.dobGroup select {
+    padding: 10px;
+    border-radius: 999px;
+    border: none;
+    background-color: #f5f5f5;
+    font-size: 1rem;
+}
+
+.radioGroup {
+    display: flex;
+    gap: 20px;
+    margin-top: 5px;
+}
+
+.radioGroup label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1rem;
+}
+
+.note {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 5px;
+}
+
+.changeLink {
+    color: #8a2be2;
+    margin-left: 5px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.saveButton {
+    margin-top: 20px;
+    background: linear-gradient(to right, #8a2be2, #a855f7);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.saveButton:hover {
+    background: linear-gradient(to right, #7c1fe2, #9333ea);
+}

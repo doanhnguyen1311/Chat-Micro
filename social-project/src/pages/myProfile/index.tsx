@@ -1,49 +1,47 @@
-import type React from "react";
+import React, { useState } from "react";
 import styles from "./index.module.css";
+import ViewProfile from "./ViewProfile";
+import EditProfile from "./EditProfile";
+import ChangePhoto from "./ChangePhoto";
+import ChangeCover from "./ChangeCover";
 
 const MyProfile: React.FC = () => {
+    const [activeTab, setActiveTab] = useState<"view" | "edit" | "photo" | "cover">("view");
+
     return (
         <div className={`col-lg-6 border-x-primary ${styles.container}`}>
-            {/* Tabs */}
             <div className={styles.tabs}>
-                <div className={`${styles.tab} ${styles.active}`}>View</div>
-                <div className={styles.tab}>Edit</div>
-                <div className={styles.tab}>Change Profile Photo</div>
-                <div className={styles.tab}>Change Cover Image</div>
+                <div
+                    className={`${styles.tab} ${activeTab === "view" ? styles.active : ""}`}
+                    onClick={() => setActiveTab("view")}
+                >
+                    View
+                </div>
+                <div
+                    className={`${styles.tab} ${activeTab === "edit" ? styles.active : ""}`}
+                    onClick={() => setActiveTab("edit")}
+                >
+                    Edit
+                </div>
+                <div
+                    className={`${styles.tab} ${activeTab === "photo" ? styles.active : ""}`}
+                    onClick={() => setActiveTab("photo")}
+                >
+                    Change Profile Photo
+                </div>
+                <div
+                    className={`${styles.tab} ${activeTab === "cover" ? styles.active : ""}`}
+                    onClick={() => setActiveTab("cover")}
+                >
+                    Change Cover Image
+                </div>
             </div>
 
-            {/* Title */}
-            <h2 className={styles.title}>View Profile</h2>
-
-            {/* Section */}
-            <h4 className={styles.section}>Base</h4>
-            <hr className={styles.divider} />
-
-            {/* Info Table */}
-            <table className={styles.table}>
-                <tbody>
-                    <tr>
-                        <td className={styles.label}>Name</td>
-                        <td className={styles.value}>Joseph</td>
-                    </tr>
-                    <tr>
-                        <td className={styles.label}>Date of Birth</td>
-                        <td className={styles.value}>1992-02-07</td>
-                    </tr>
-                    <tr>
-                        <td className={styles.label}>Sex</td>
-                        <td className={`${styles.value} ${styles.highlight}`}>Male</td>
-                    </tr>
-                    <tr>
-                        <td className={styles.label}>City</td>
-                        <td className={styles.value}>aaa</td>
-                    </tr>
-                    <tr>
-                        <td className={styles.label}>Country</td>
-                        <td className={`${styles.value} ${styles.highlight}`}>Armenia</td>
-                    </tr>
-                </tbody>
-            </table>
+            {/* Nội dung của từng tab */}
+            {activeTab === "view" && <ViewProfile />}
+            {activeTab === "edit" && <EditProfile />}
+            {activeTab === "photo" && <ChangePhoto />}
+            {activeTab === "cover" && <ChangeCover />}
         </div>
     );
 };
