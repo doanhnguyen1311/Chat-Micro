@@ -20,7 +20,7 @@ const ProfileVisibilitySettings: React.FC = () => {
 
     return (
         <form className={styles.container}>
-            <h2 className={styles.heading}>Profile Visibility Settings</h2>
+            <h2 className={styles.heading}>Profile Visibility Settingss</h2>
             <p className={styles.subheading}>
                 Select who may see your profile details.
             </p>
