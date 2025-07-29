@@ -5,10 +5,7 @@ const options = ["Everyone", "Only Me", "All Members", "My Friends"];
 
 const defaultSettings = {
     name: "Everyone",
-    dateOfBirth: "Only Me",
-    sex: "Only Me",
-    city: "Only Me",
-    country: "Only Me",
+    PersonalInfo: "Only Me",
 };
 
 const ProfileVisibilitySettings: React.FC = () => {

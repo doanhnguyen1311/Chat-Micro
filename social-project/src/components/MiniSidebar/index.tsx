@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { UserRound, Play, UsersRound, MonitorDot } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import logo from '../../assets/imgs/logo.ico';
+import logo from '../../assets/imgs/logo.png';
 import styles from "./index.module.css";
 
 interface SidebarItem {

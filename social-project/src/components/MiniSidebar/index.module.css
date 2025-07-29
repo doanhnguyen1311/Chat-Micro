@@ -20,6 +20,7 @@
     height: 40px;
     background: transparent;
     margin: 0 auto;
+    object-fit: cover;
 }
 
 .logo h1 {

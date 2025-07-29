@@ -27,7 +27,7 @@ const EditProfile: React.FC = () => {
                             <select defaultValue="February"><option>February</option></select>
                             <select defaultValue="1992"><option>1992</option></select>
                         </div>
-                        <div className={styles.note}>This field may be seen by: <strong>Only Me</strong> <a className={styles.changeLink}>Change</a></div>
+                        <div className={styles.note}>This field may be seen by: <strong>Only Me</strong></div>
                     </div>
                 </div>
 
@@ -39,7 +39,7 @@ const EditProfile: React.FC = () => {
                             <label><input type="radio" name="sex" defaultChecked /> Male</label>
                             <label><input type="radio" name="sex" /> Female</label>
                         </div>
-                        <div className={styles.note}>This field may be seen by: <strong>Only Me</strong> <a className={styles.changeLink}>Change</a></div>
+                        <div className={styles.note}>This field may be seen by: <strong>Only Me</strong></div>
                     </div>
                 </div>
 
@@ -48,7 +48,7 @@ const EditProfile: React.FC = () => {
                     <div className={styles.fieldSet}>
                         <label className={styles.labelEdit}>City <span className={styles.required}>(required)</span></label>
                         <input type="text" className={styles.input} defaultValue="aaa" />
-                        <div className={styles.note}>This field may be seen by: <strong>Only Me</strong> <a className={styles.changeLink}>Change</a></div>
+                        <div className={styles.note}>This field may be seen by: <strong>Only Me</strong></div>
                     </div>
                 </div>
 
@@ -59,7 +59,7 @@ const EditProfile: React.FC = () => {
                         <select className={styles.select} defaultValue="Armenia">
                             <option>Armenia</option>
                         </select>
-                        <div className={styles.note}>This field may be seen by: <strong>Only Me</strong> <a className={styles.changeLink}>Change</a></div>
+                        <div className={styles.note}>This field may be seen by: <strong>Only Me</strong></div>
                     </div>
                 </div>
 
