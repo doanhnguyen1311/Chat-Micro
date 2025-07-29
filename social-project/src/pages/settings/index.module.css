@@ -45,15 +45,11 @@
 }
 
 .section {
-    font-size: 1em !important;
+    font-size: 14px !important;
     padding-bottom: 0.5rem;
-    color: #4f515b;
-}
-
-.divider {
-    border: none;
-    border-top: 1px solid #e7edf2;
-    margin-bottom: 20px;
+    color: #626276;
+    line-height: 26px;
+    font-weight: 400;
 }
 
 .table {
@@ -106,25 +102,19 @@ table tbody tr td {
 }
 
 .fieldSet {
-    padding-left: 25%;
     order: 1;
-    margin-bottom: 1rem;
     position: relative;
 }
 
 .labelEdit {
-    position: absolute;
-    left: 0;
-    width: 25%;
-    padding-right: 1rem;
-    text-align: right;
+    color: #626276;
     margin-top: .775rem;
+    margin-bottom: 8px;
     font-weight: 600;
     font-size: 1em;
     display: block;
     max-width: 100%;
     line-height: inherit;
-    color: inherit;
     white-space: normal;
     box-sizing: border-box;
 }
@@ -152,6 +142,20 @@ table tbody tr td {
     font-size: inherit;
     word-wrap: break-word;
     box-sizing: border-box;
+}
+
+.forgot {
+    color: #29292d;
+    transition: .5s;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 26px;
+}
+
+.forgot:hover {
+    text-decoration: underline;
+    color: #8224e3;
+    cursor: pointer;
 }
 
 .dobGroup {
@@ -200,8 +204,7 @@ table tbody tr td {
 }
 
 .saveButton {
-    width: 50%;
-    margin: 0 auto;
+    width: 30%;
     background-color: #8224e3;
     background-image: linear-gradient(90deg, #8224e3 0, #a84aff 50%, #8224e3 100%);
     background-size: 200%;
@@ -228,46 +231,20 @@ table tbody tr td {
     border-top: 2px solid #8224e3 !important;
     background-color: #fff;
     padding: 1.5rem;
-    margin: 1rem 0;
     position: relative;
     border: 1px solid #e7edf2;
     border-radius: 12px;
     box-shadow: 0 8px 6px -6px rgba(58,46,68,.05);
 }
 
-.icon {
-    color: #8224e3;
-    margin-top: -5px;
-}
-
-.infoBox p {
-    color: #626276;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 26px;
-}
-
-.link {
-    color: #8224e3;
-    text-decoration: underline;
-}
-
-.dropzone {
-    border: 2px dashed #ccc;
-    border-radius: 12px;
-    padding: 40px;
-    text-align: center;
-    color: #666;
-}
-
 .selectFile {
-    margin-top: 15px;
+    width: 36%;
     background: none;
     border: 1px solid #8224e3;
     color: #8224e3;
     padding: .375rem 2rem;
     min-height: 2.5rem;
-    font-size: 1rem;
+    font-size: 14px;
     border-radius: 999px;
     cursor: pointer;
     line-height: 26px;
@@ -280,21 +257,39 @@ table tbody tr td {
     transition: all 750ms ease;
 }
 
-.warningBox {
-    background-color: #ffd;
-    border: 1px solid #cb2;
-    color: #440;
-    display: block;
-    font-size: 90%;
-    margin: 1em 0;
-    padding: 10px 15px;
-    border-radius: 12px;
+.seeIcon {
+    border: 1px solid #8224e3;
+    border-radius: 50%;
+    padding: 8px;
+    color: #8224e3;
+    transition: .5s;
 }
 
-.text {
-    color: #440;
+.seeIcon:hover {
+    border: 1px solid #8224e3;
+    background-color: #8224e3;
+    color: #fff;
+    cursor: pointer;
+}
+
+.cancelBtn {
+    background: none;
+    border: 1px solid #8224e3;
+    color: #8224e3;
+    padding: .375rem 2rem;
+    min-height: 2.5rem;
     font-size: 14px;
-    font-weight: 400;
+    border-radius: 999px;
+    cursor: pointer;
     line-height: 26px;
+    box-shadow: 0 2px 5px 0 rgba(58,46,68,.08);
+    transition: .5s;
+}
+
+.cancelBtn:hover {
+    border: 1px solid #8224e3;
+    background-color: #8224e3;
+    color: #fff;
+    cursor: pointer;
 }
 

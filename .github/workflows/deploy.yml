@@ -1,0 +1,94 @@
+name: Deploy Chat Application
+
+on:
+  push:
+    branches:
+      - delichatFE # Đảm bảo đây là nhánh bạn muốn triển khai
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        # Sử dụng phiên bản cụ thể thay vì @master để đảm bảo ổn định
+        uses: appleboy/ssh-action@v1.0.0 
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_KEY }}
+          port: 22
+
+          script: |
+            # Dòng này RẤT QUAN TRỌNG: Script sẽ dừng ngay lập tức nếu có bất kỳ lệnh nào báo lỗi
+            set -e
+
+            # 1. KHỞI TẠO MÔI TRƯỜNG NODE.JS
+            # Đây là cách chuẩn để load NVM trong một script không tương tác
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            echo "Đã khởi tạo NVM."
+            
+            # Sử dụng phiên bản Node.js mặc định đã cài (nếu bạn đã dùng `nvm alias default ...`)
+            nvm use default
+            echo "Sử dụng Node.js phiên bản: $(node -v)"
+            echo "Sử dụng npm phiên bản: $(npm -v)"
+
+            # 2. CẬP NHẬT CODE TỪ REPOSITORY
+            cd ~/Chat-Micro
+            echo "Đang ở trong thư mục $(pwd)"
+            
+            # Cách cập nhật code an toàn hơn:
+            # - git fetch: Lấy thông tin mới nhất từ remote nhưng chưa áp dụng.
+            # - git reset --hard: Buộc HEAD của nhánh cục bộ phải trùng khớp với HEAD của nhánh trên remote.
+            # Cách này sẽ xóa mọi thay đổi chưa commit trên server, đảm bảo code sạch sẽ.
+            git fetch origin delichatFE
+            git reset --hard origin/delichatFE
+            echo "Đã cập nhật code từ nhánh delichatFE thành công."
+
+            # 3. DỪNG CÁC TIẾN TRÌNH CŨ
+            echo "Đang tìm và dừng các tiến trình cũ trên cổng 5173 và 5174..."
+            # Dùng `fuser` hoặc `lsof`. `|| true` để script không bị lỗi nếu không tìm thấy tiến trình nào.
+            sudo fuser -k 5173/tcp || true
+            sudo fuser -k 5174/tcp || true
+            echo "Đã dừng các tiến trình cũ (nếu có)."
+            
+            # --- TRIỂN KHAI VITE-PROJECT ---
+            echo "================================="
+            echo "Bắt đầu triển khai vite-project"
+            echo "================================="
+            cd vite-project
+            
+            echo "Đang cài đặt dependencies bằng 'npm ci' (nhanh và an toàn hơn)..."
+            # npm ci sẽ xóa node_modules và cài đặt sạch từ package-lock.json
+            npm ci
+            
+            echo "Khởi chạy vite-project trên cổng 5173 trong nền..."
+            # Chạy trong nền, lưu log và ngắt kết nối với phiên SSH
+            nohup npx vite --host 0.0.0.0 --port 5173 > vite.log 2>&1 &
+            disown
+            cd .. # Quay lại thư mục ~/Chat-Micro
+            echo "✅ vite-project đã được khởi chạy."
+            
+            # Đợi một chút để server không bị quá tải
+            sleep 5 
+
+            # --- TRIỂN KHAI SOCIAL-PROJECT ---
+            echo "=================================="
+            echo "Bắt đầu triển khai social-project"
+            echo "=================================="
+            cd social-project
+            
+            echo "Đang cài đặt dependencies bằng 'npm ci'..."
+            npm ci
+            
+            echo "Khởi chạy social-project trên cổng 5174 trong nền..."
+            nohup npx vite --host 0.0.0.0 --port 5174 > social.log 2>&1 &
+            disown
+            cd ..
+            echo "✅ social-project đã được khởi chạy."
+
+            echo "🚀🚀🚀 Quá trình triển khai hoàn tất! 🚀🚀🚀"

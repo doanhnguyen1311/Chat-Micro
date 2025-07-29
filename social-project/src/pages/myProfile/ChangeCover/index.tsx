@@ -17,6 +17,7 @@ const ChangeCover: React.FC = () => {
                 </p>
             </div>
 
+            {/* Select File Box */}
             <div className={styles.dropzone}>
                 <p>Drop your file here</p>
                 <button className={styles.selectFile}>Select your file</button>

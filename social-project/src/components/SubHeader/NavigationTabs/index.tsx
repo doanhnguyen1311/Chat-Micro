@@ -11,6 +11,7 @@ import {
 import TabItem from '../TabItem';
 import styles from '../index.module.css';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function NavigationTabs() {
     const [showMenu, setShowMenu] = useState(false);
@@ -32,7 +33,7 @@ export default function NavigationTabs() {
                     <div className={styles.menu}>
                         <div className={`${styles.menu_item} d-flex align-center gap-8px`}><BellRing size={16}/>Notifications</div>
                         <div className={`${styles.menu_item} ${styles.menu_middle} d-flex align-center gap-8px`}><MessageCircleMore size={16}/>Messages</div>
-                        <div className={`${styles.menu_item} d-flex align-center gap-8px`}><Settings size={16}/>Settings</div>
+                        <Link to='settings' className={`${styles.menu_item} d-flex align-center gap-8px`}><Settings size={16}/>Settings</Link>
                     </div>
                 )}
             </div>

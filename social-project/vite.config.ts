@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   plugins: [react()],
   server: {
-    allowedHosts: ['chat.delichat.online'],
+    allowedHosts: ['socials.delichat.online'],
     host: true,
   },
 })

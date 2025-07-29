@@ -1,0 +1,94 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: "Segoe UI", sans-serif;
+    color: #2d2d2d;
+}
+
+.heading {
+    font-size: 1.616em;
+    margin-bottom: 1rem;
+    color: #4f515b;
+}
+
+.subheading {
+    font-size: 14px !important;
+    padding-bottom: 0.5rem;
+    color: #626276;
+    line-height: 26px;
+    font-weight: 400;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+}
+
+.th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    color: #626276;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 12px 0;
+    background-color: #fff;
+}
+
+.th1 {
+    width: 76%;
+}
+
+.row {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.td {
+    padding: 14px 0;
+    font-size: 14px;
+    color: #626276;
+    background-color: #fff;
+}
+
+.td1 {
+    padding: 0;
+}
+
+.select {
+    padding: .375rem 1rem;
+    font-size: 14px;
+    font-family: inherit;
+    border: none;
+    border-radius: 1.25rem;
+    background-color: #f7f7f7;
+    display: block;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 7l3-3 3 3m0 6l-3 3-3-3'/></svg>");
+    background-size: 1em;
+    background-repeat: no-repeat;
+    background-position-x: calc(100% - .75rem);
+    background-position-y: 50%;
+    padding-right: calc(1rem + 1em);
+}
+
+.saveButton {
+    width: 30%;
+    background-color: #8224e3;
+    background-image: linear-gradient(90deg, #8224e3 0, #a84aff 50%, #8224e3 100%);
+    background-size: 200%;
+    color: white;
+    padding: .375rem 2rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 26px;
+}
+
+.saveButton:hover {
+    background-color: #8224e3;
+    background-position: right center;
+    box-shadow: 0 2px 5px -2px #8224e3;
+    transition: all 750ms ease;
+}
