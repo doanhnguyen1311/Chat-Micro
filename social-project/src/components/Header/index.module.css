@@ -47,7 +47,7 @@
 
 .emptyBox {
     background-color: #fff3cd;
-    padding: 10px;
+    padding: 20px 10px;
     border-radius: 6px;
     color: #856404;
     font-size: 14px;
@@ -56,20 +56,23 @@
 }
 
 .allRequestsButton {
-    display: block;
     width: 100%;
-    padding: 10px;
-    background-color: transparent;
-    border: 2px solid #9f6ef1;
-    border-radius: 24px;
-    color: #9f6ef1;
-    font-weight: 600;
+    background: none;
+    border: 1px solid #8224e3;
+    color: #8224e3;
+    padding: .375rem 2rem;
+    min-height: 2.5rem;
+    font-size: 14px;
+    border-radius: 999px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    line-height: 26px;
+    box-shadow: 0 2px 5px 0 rgba(58,46,68,.08);
 }
 
 .allRequestsButton:hover {
-    background-color: #f4ebff;
+    background-color: #8224e3;
+    color: #fff;
+    transition: all 750ms ease;
 }
 
 .icon {

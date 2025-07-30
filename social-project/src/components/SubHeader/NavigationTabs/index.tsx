@@ -31,8 +31,8 @@ export default function NavigationTabs() {
                 <span className={styles.tabLabel}>More</span>
                 {showMenu && (
                     <div className={styles.menu}>
-                        <div className={`${styles.menu_item} d-flex align-center gap-8px`}><BellRing size={16}/>Notifications</div>
-                        <div className={`${styles.menu_item} ${styles.menu_middle} d-flex align-center gap-8px`}><MessageCircleMore size={16}/>Messages</div>
+                        <Link to='notifications' className={`${styles.menu_item} ${styles.menu_middle} d-flex align-center gap-8px`}><BellRing size={16}/>Notifications</Link>
+                        <div className={`${styles.menu_item} d-flex align-center gap-8px`}><MessageCircleMore size={16}/>Messages</div>
                         <Link to='settings' className={`${styles.menu_item} d-flex align-center gap-8px`}><Settings size={16}/>Settings</Link>
                     </div>
                 )}

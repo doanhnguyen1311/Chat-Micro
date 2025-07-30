@@ -95,11 +95,11 @@ const Header: React.FC = () => {
 
                     {showNotifications && (
                         <div className={styles.dropdown}>
-                            <div className={styles.dropdownTitle}>Friend requests</div>
+                            <div className={styles.dropdownTitle}>Notifications</div>
                             <div className={styles.emptyBox}>
-                                <p>No friend request.</p>
+                                <p>No notifications found.</p>
                             </div>
-                            <button className={styles.allRequestsButton}>All Requests</button>
+                            <button className={styles.allRequestsButton}>All Notifications</button>
                         </div>
                     )}
                 </div>

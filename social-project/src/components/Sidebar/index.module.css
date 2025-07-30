@@ -21,6 +21,7 @@
     height: 50px;
     background: transparent;
     margin: 0 auto 0.5rem;
+    object-fit: cover;
 }
 
 .logo h1 {
@@ -71,6 +72,7 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
     row-gap: 3rem;
+    background: #f8f8fa;
 }
 
 .menuItem {
