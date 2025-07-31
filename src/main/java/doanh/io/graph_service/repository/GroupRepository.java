@@ -1,0 +1,13 @@
+package doanh.io.graph_service.repository;
+
+import doanh.io.graph_service.entity.Group;
+import doanh.io.graph_service.entity.GroupType;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface GroupRepository extends JpaRepository<Group, Long> {
+    List<Group> findByTypeAndIsDeleted(GroupType type, boolean isDeleted);
+}
