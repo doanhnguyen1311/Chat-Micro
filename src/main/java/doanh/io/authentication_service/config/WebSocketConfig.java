@@ -23,10 +23,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .setAllowedOrigins(
                         "http://localhost:5173",
                         "http://localhost:5174",
-                        "http://localhost:5175",
-                        "https://front-message-web-xdej.vercel.app",
-                        "https://382e-2405-4802-a092-8e50-7d2b-f71-6f05-9c85.ngrok-free.app",
-                        "https://c.delichat.online"
+                        "https://com.delichat.online",
+                        "https://socials.delichat.online",
+                        "https://chats.delichat.online",
+                        "https://chat.delichat.online"
                 )
                 .withSockJS();
     }

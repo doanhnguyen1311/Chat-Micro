@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("")
+@RequestMapping("/auth")
 @Slf4j
 public class AuthenticationController {
 
@@ -41,7 +42,7 @@ public class AuthenticationController {
             @RequestBody LoginRequest loginRequest,
             HttpServletResponse responseCookie,
             @CookieValue(value = "deviceId", required = false) String deviceId
-    ) {
+    ) throws ParseException {
         // Nếu chưa có deviceId thì tạo mới
         if (deviceId == null || deviceId.isBlank()) {
             deviceId = UUID.randomUUID().toString();
@@ -66,6 +67,13 @@ public class AuthenticationController {
             token.setPath("/");
             token.setMaxAge(3600 * 24 * 2); // 2 ngày
 
+            Cookie userId = new Cookie("userId", userIdFromCookie(response.getData().getToken()));
+            userId.setHttpOnly(true);
+            userId.setSecure(true);
+            userId.setPath("/");
+            userId.setMaxAge(3600 * 24 * 2);
+
+            responseCookie.addCookie(userId);
             responseCookie.addCookie(token);
         }
 
@@ -145,16 +153,25 @@ public class AuthenticationController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<APIResponse<?>> logout(@CookieValue("accessToken") String accessToken, @CookieValue("deviceId") String deviceId) {
+    public ResponseEntity<APIResponse<?>> logout(
+            @CookieValue("accessToken") String accessToken,
+            @CookieValue("deviceId") String deviceId,
+            HttpServletResponse response
+    ) {
         try {
             String userId = userIdFromCookie(accessToken);
-
             authenticationService.logout(userId, deviceId);
+
+            // Xóa cookie bằng cách set Max-Age = 0
+            clearCookie("accessToken", response);
+            clearCookie("deviceId", response);
+
             return ResponseEntity.ok(APIResponse.builder()
                     .success(true)
                     .message("Logged out successfully.")
                     .statusCode(200)
                     .build());
+
         } catch (Exception e) {
             log.error("Error during logout for user {}: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -164,6 +181,17 @@ public class AuthenticationController {
                             .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                             .build());
         }
+    }
+
+    private void clearCookie(String name, HttpServletResponse response) {
+        ResponseCookie cookie = ResponseCookie.from(name, "")
+                .maxAge(0)
+                .path("/")
+                .sameSite("None")
+                .secure(true)
+                .httpOnly(true)
+                .build();
+        response.addHeader("Set-Cookie", cookie.toString());
     }
 
     @PostMapping("/logout-all-device")
