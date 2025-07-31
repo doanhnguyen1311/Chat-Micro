@@ -1,0 +1,56 @@
+name: Deploy Backend Account Service
+
+on:
+  push:
+    branches:
+      - service/account-service # Chạy workflow khi có push lên nhánh này
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy Backend via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.DAWS_VPS_HOST }}
+          username: ${{ secrets.DAWS_VPS_USER }}
+          key: ${{ secrets.DAWS_VPS_KEY }}
+          port: 22
+
+          script: |
+            # Dừng script ngay lập tức nếu có lỗi
+            set -e
+
+            # 1. CẬP NHẬT CODE TỪ REPOSITORY
+            # Thay đổi '~/Chat-Micro' nếu thư mục dự án của bạn có tên khác trên server
+            cd ~/Chat-Micro 
+            echo "Đang ở trong thư mục $(pwd)"
+            
+            # Lấy code mới nhất từ nhánh service/account-service
+            git fetch origin service/account-service
+            git reset --hard origin/service/account-service
+            echo "Đã cập nhật code từ nhánh service/account-service thành công."
+
+            # 2. DỪNG TIẾN TRÌNH CŨ
+            echo "Đang tìm và dừng tiến trình cũ trên cổng 8080..."
+            # Sử dụng fuser để kill tiến trình đang chiếm cổng 8080. 
+            # '|| true' để script không bị lỗi nếu không tìm thấy tiến trình nào.
+            sudo fuser -k 8080/tcp || true
+            echo "Đã dừng tiến trình cũ trên cổng 8080 (nếu có)."
+            
+            # 3. KHỞI CHẠY ỨNG DỤNG BACKEND
+            echo "=========================================="
+            echo "Bắt đầu triển khai account-service"
+            echo "=========================================="
+            
+            echo "Khởi chạy ứng dụng Spring Boot bằng 'mvn spring-boot:run'..."
+            # Chạy trong nền, lưu log vào file account-service.log
+            # và ngắt kết nối với phiên SSH để tiến trình tiếp tục chạy.
+            nohup mvn spring-boot:run > account-service.log 2>&1 &
+            
+            echo "✅ Backend account-service đã được khởi chạy trên cổng 8080."
+            echo "🚀🚀🚀 Quá trình triển khai backend hoàn tất! 🚀🚀🚀"
