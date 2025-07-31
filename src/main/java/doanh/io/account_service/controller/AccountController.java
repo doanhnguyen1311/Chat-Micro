@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("")
+@RequestMapping("/accounts")
 public class AccountController {
 
     private final AccountService accountService;
@@ -71,5 +71,11 @@ public class AccountController {
                 "{}"                    // message body (vì không cần)
         );
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/my-info")
+    public ResponseEntity<APIResponse<?>> getMyInfo(@CookieValue(name = "userId", required = false) String userId) {
+        var response = accountService.getOne(userId);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 }

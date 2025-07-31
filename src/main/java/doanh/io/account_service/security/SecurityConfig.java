@@ -43,7 +43,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "https://front-message-web-aryf.vercel.app", "https://frontend.delichat.online", "c.delichat.online")); // List thay vì addAllowedOrigin()
+        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "https://chat.delichat.online", "https://chats.delichat.online", "https://socials.delichat.online")); // List thay vì addAllowedOrigin()
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

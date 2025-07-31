@@ -13,7 +13,9 @@ import java.time.LocalDate;
 @Builder
 public class UserProfile {
     private String fullName;
+    @jakarta.persistence.Column(length = 1024)
     private String avatarUrl;
+    @jakarta.persistence.Column(length = 1024)
     private String coverPhotoUrl;
     private String bio;
     private String gender;

@@ -3,6 +3,7 @@ package doanh.io.account_service.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import doanh.io.account_service.dto.AccountDTO;
 import doanh.io.account_service.dto.APIResponse;
+import doanh.io.account_service.dto.UserNode;
 import doanh.io.account_service.entity.Account;
 import doanh.io.account_service.mapper.AccountMapper;
 import doanh.io.account_service.mapper.ProviderInfoMapper;
@@ -19,6 +20,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.core.type.TypeReference; // Đảm bảo dòng này đúng
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,6 +46,8 @@ public class AccountService {
     private final RedisTemplate<String, String> stringRedisTemplate;
 
     private final ObjectMapper objectMapper;
+
+    private final RestTemplate restTemplate = new RestTemplate();
 
     public APIResponse<?> getAll() {
         String redisKey = "accounts_list_dto_bytes";
@@ -149,6 +156,15 @@ public class AccountService {
     }
 
 
+    private UserNode toUserNode(AccountDTO dto) {
+        return UserNode.builder()
+                .id(dto.getId())
+                .name(dto.getProfile().getFullName()) // hoặc dto.getProfile().getFullName() nếu muốn lấy tên đầy đủ
+                .address(dto.getProfile() != null ? dto.getProfile().getLocation() : null)
+                .avatar(dto.getProfile() != null ? dto.getProfile().getAvatarUrl() : null)
+                .build();
+    }
+
     @Transactional
     public APIResponse<?> add(AccountDTO accountDTO) {
         boolean existEmail = accountRepository.existsByEmail(accountDTO.getEmail());
@@ -160,6 +176,11 @@ public class AccountService {
 
         if (existUsername) {
             return new APIResponse<>(null, "Exist username!", 400, false);
+        }
+
+        boolean existPhone = accountRepository.existsByPhoneNumber(accountDTO.getPhoneNumber());
+        if (existPhone) {
+            return new APIResponse<>(null, "Exist phone number!", 400, false);
         }
 
         Account account = accountMapper.toAccount(accountDTO);
@@ -176,6 +197,17 @@ public class AccountService {
 
         Account saved = accountRepository.save(account);
         AccountDTO savedDTO = accountMapper.toAccountDTO(saved);
+        // Gửi đúng body kiểu UserNode
+        try {
+            String url = "http://localhost:8082/user/";
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            UserNode userNode = toUserNode(savedDTO);
+            HttpEntity<UserNode> request = new HttpEntity<>(userNode, headers);
+            restTemplate.postForEntity(url, request, String.class);
+        } catch (Exception e) {
+            log.error("Lỗi khi gọi API tạo user bên graph_service: {}", e.getMessage());
+        }
 
         return APIResponse.builder()
                 .message("Account created!")
@@ -200,8 +232,20 @@ public class AccountService {
         existing.setProvider(providerInfoMapper.toEntity(accountDTO.getProvider()));
 
         Account updated = accountRepository.save(existing);
+        AccountDTO updatedDTO = accountMapper.toAccountDTO(updated);
+        // Gửi đúng body kiểu UserNode
+        try {
+            String url = "http://localhost:8082/user/";
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            UserNode userNode = toUserNode(updatedDTO);
+            HttpEntity<UserNode> request = new HttpEntity<>(userNode, headers);
+            restTemplate.put(url, request);
+        } catch (Exception e) {
+            log.error("Lỗi khi gọi API cập nhật user bên graph_service: {}", e.getMessage());
+        }
         return APIResponse.builder()
-                .data(accountMapper.toAccountDTO(updated))
+                .data(updatedDTO)
                 .statusCode(200)
                 .success(true)
                 .build();
@@ -222,6 +266,13 @@ public class AccountService {
 
         AccountDTO deletedDTO = accountMapper.toAccountDTO(accountOpt.get());
         accountRepository.deleteById(id);
+        // Gửi đúng body kiểu UserNode (chỉ cần id)
+        try {
+            String url = "http://localhost:8082/user/" + id;
+            restTemplate.delete(url);
+        } catch (Exception e) {
+            log.error("Lỗi khi gọi API xóa user bên graph_service: {}", e.getMessage());
+        }
 
         return APIResponse.builder()
                 .success(true)
