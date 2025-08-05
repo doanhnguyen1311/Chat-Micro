@@ -37,6 +37,7 @@
 
 .iconCollapse {
     height: 80px;
+    width: 100%;
     color: #5d5d5d;
     border-bottom: 1px solid #eaeaea;
     display: flex;
@@ -112,6 +113,7 @@
 .collapsed {
     width: 100px;
     align-items: center;
+    justify-content: space-between;
     background-color: #f8f9fb;
 }
 

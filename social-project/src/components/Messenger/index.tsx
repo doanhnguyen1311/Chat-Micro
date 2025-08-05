@@ -7,7 +7,6 @@ import GroupList from "./GroupList";
 import ChatBox from "./ChatBox";
 import type { ChatGroup } from "./types";
 
-// Dummy data
 const groups: ChatGroup[] = [
   {
     id: 1,
@@ -36,7 +35,7 @@ const groups: ChatGroup[] = [
 
 const MessengerSidebar: React.FC = () => {
   const [tab, setTab] = useState<"friends" | "groups">("groups");
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [activeChats, setActiveChats] = useState<ChatGroup[]>([]);
 
   const openChat = (group: ChatGroup) => {
