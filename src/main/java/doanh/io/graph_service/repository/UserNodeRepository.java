@@ -164,4 +164,10 @@ public interface UserNodeRepository extends Neo4jRepository<UserNode, String> {
     // Lấy danh sách user trong một group
     @Query("MATCH (g:Group {id: $groupId})<-[:MEMBER_OF]-(u:User) RETURN u")
     List<UserNode> findUsersInGroup(@Param("groupId") Long groupId);
+
+    @Query("MATCH (u:User {id: $userId})-[:FRIEND]->(f:User) WHERE NOT (f)-[:MEMBER_OF]->(:Group {id: $groupId}) RETURN f")
+    List<UserNode> findFriendsNotInGroup(@Param("userId") String userId, @Param("groupId") Long groupId);
+
+
+
 }

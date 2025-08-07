@@ -4,6 +4,7 @@ import doanh.io.graph_service.dto.APIResponse;
 import doanh.io.graph_service.dto.RelationshipStatusResponse;
 import doanh.io.graph_service.node.UserNode;
 import doanh.io.graph_service.repository.UserNodeRepository;
+import doanh.io.graph_service.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.List;
 public class FriendGraphController {
 
     private final UserNodeRepository userNodeRepository;
+    private final AuthenticationService authenticationService;
 
     private ResponseEntity<APIResponse<?>> unauthorized() {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
@@ -36,9 +38,9 @@ public class FriendGraphController {
 
         if (userId == null) return unauthorized();
 
-        boolean exists = userNodeRepository.areFriends(userId, toUserId) ||
-                userNodeRepository.hasSentRequest(userId, toUserId) ||
-                userNodeRepository.hasReceivedRequest(userId, toUserId);
+        boolean exists = userNodeRepository.areFriends(authenticationService.decryptUserId(userId), toUserId) ||
+                userNodeRepository.hasSentRequest(authenticationService.decryptUserId(userId), toUserId) ||
+                userNodeRepository.hasReceivedRequest(authenticationService.decryptUserId(userId), toUserId);
 
         if (exists) {
             return ResponseEntity.badRequest().body(APIResponse.<String>builder()
@@ -49,7 +51,7 @@ public class FriendGraphController {
                     .build());
         }
 
-        userNodeRepository.sendFriendRequest(userId, toUserId);
+        userNodeRepository.sendFriendRequest(authenticationService.decryptUserId(userId), toUserId);
         return ResponseEntity.ok(APIResponse.<String>builder()
                 .code(200)
                 .message("Friend request sent.")
@@ -99,7 +101,9 @@ public class FriendGraphController {
 
         if (userId == null) return unauthorized();
 
-        boolean received = userNodeRepository.hasReceivedRequest(toUserId, userId);
+        userId = authenticationService.decryptUserId(userId);
+
+        boolean received = userNodeRepository.hasReceivedRequest(userId, toUserId);
         if (!received) {
             return ResponseEntity.badRequest().body(APIResponse.<String>builder()
                     .code(400)
@@ -109,7 +113,7 @@ public class FriendGraphController {
                     .build());
         }
 
-        userNodeRepository.acceptFriendRequest(userId, toUserId);
+        userNodeRepository.acceptFriendRequest(toUserId, userId);
         return ResponseEntity.ok(APIResponse.<String>builder()
                 .code(200)
                 .message("Friend request accepted.")
@@ -125,7 +129,9 @@ public class FriendGraphController {
 
         if (userId == null) return unauthorized();
 
-        boolean received = userNodeRepository.hasReceivedRequest(toUserId, userId);
+        userId = authenticationService.decryptUserId(userId);
+
+        boolean received = userNodeRepository.hasReceivedRequest(userId, toUserId);
         if (!received) {
             return ResponseEntity.badRequest().body(APIResponse.<String>builder()
                     .code(400)
@@ -135,7 +141,7 @@ public class FriendGraphController {
                     .build());
         }
 
-        userNodeRepository.rejectFriendRequest(userId, toUserId);
+        userNodeRepository.rejectFriendRequest(toUserId, userId);
         return ResponseEntity.ok(APIResponse.<String>builder()
                 .code(200)
                 .message("Friend request rejected.")
@@ -146,10 +152,12 @@ public class FriendGraphController {
 
     @GetMapping("/status")
     public ResponseEntity<APIResponse<?>> getRelationshipStatus(
-            @CookieValue(value = "userId", required = false) String userId,
+            @CookieValue(value = "userId", required = false) String uid,
             @RequestParam String targetId) {
 
-        if (userId == null) return unauthorized();
+        if (uid == null) return unauthorized();
+
+        var userId = authenticationService.decryptUserId(uid);
 
         if (userId.equals(targetId)) {
             return ResponseEntity.ok(APIResponse.<RelationshipStatusResponse>builder()
@@ -189,6 +197,7 @@ public class FriendGraphController {
 
         if (userId == null) return unauthorized();
 
+        userId = authenticationService.decryptUserId(userId);
         if (userId.equals(toUserId)) {
             return ResponseEntity.badRequest().body(APIResponse.<String>builder()
                     .code(400)
@@ -222,6 +231,7 @@ public class FriendGraphController {
                     .data(null)
                     .build());
         }
+        selfId = authenticationService.decryptUserId(selfId);
 
         Long deletedCount = userNodeRepository.deleteFriendship(selfId, targetId);
 
@@ -249,6 +259,8 @@ public class FriendGraphController {
 
         if (userId == null) return unauthorized();
 
+        userId = authenticationService.decryptUserId(userId);
+
         Boolean isBlocked = userNodeRepository.isBlocked(userId, toUserId);
         if (Boolean.FALSE.equals(isBlocked)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(APIResponse.<String>builder()
@@ -275,6 +287,8 @@ public class FriendGraphController {
 
         if (userId == null) return unauthorized();
 
+        userId = authenticationService.decryptUserId(userId);
+
         List<UserNode> mutualFriends = userNodeRepository.findMutualFriends(userId, targetId);
         return ResponseEntity.ok(APIResponse.<List<UserNode>>builder()
                 .code(200)
@@ -290,6 +304,8 @@ public class FriendGraphController {
             @RequestParam String targetId) {
 
         if (userId == null) return unauthorized();
+        userId = authenticationService.decryptUserId(userId);
+
 
         Long count = userNodeRepository.countMutualFriends(userId, targetId);
         return ResponseEntity.ok(APIResponse.<Long>builder()
@@ -306,6 +322,8 @@ public class FriendGraphController {
 
         if (userId == null) return unauthorized();
 
+        userId = authenticationService.decryptUserId(userId);
+
         List<UserNode> friends = userNodeRepository.findFriends(userId);
         return ResponseEntity.ok(new APIResponse<>(200, "Lấy danh sách bạn bè thành công", friends, true));
     }
@@ -316,6 +334,8 @@ public class FriendGraphController {
 
         if (userId == null) return unauthorized();
 
+        userId = authenticationService.decryptUserId(userId);
+
         List<UserNode> sent = userNodeRepository.findFriendRequestsSent(userId);
         return ResponseEntity.ok(new APIResponse<>(200, "Lấy danh sách lời mời đã gửi thành công", sent, true));
     }
@@ -325,6 +345,8 @@ public class FriendGraphController {
             @CookieValue(value = "userId", required = false) String userId) {
 
         if (userId == null) return unauthorized();
+
+        userId = authenticationService.decryptUserId(userId);
 
         List<UserNode> received = userNodeRepository.findFriendRequestsReceived(userId);
         return ResponseEntity.ok(new APIResponse<>(200, "Lấy danh sách lời mời đã nhận thành công", received, true));

@@ -31,9 +31,9 @@ public class Group {
 
     private LocalDateTime createdAt;
 
-    private boolean isPrivate;            // Nhóm riêng tư hay công khai (chỉ cần cho CHAT)
+    private Boolean isPrivate;            // Nhóm riêng tư hay công khai (chỉ cần cho CHAT)
 
-    private boolean isDeleted;            // Đánh dấu xóa mềm
+    private Boolean isDeleted;            // Đánh dấu xóa mềm
 
     @Enumerated(EnumType.STRING)
     private GroupJoinPolicy joinPolicy;   // OPEN, REQUEST, INVITE (chỉ với SOCIAL)

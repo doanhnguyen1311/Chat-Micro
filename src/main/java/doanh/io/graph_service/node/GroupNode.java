@@ -20,4 +20,6 @@ public class GroupNode {
     private String type; // CHAT hoặc SOCIAL
 
     private String avatarUrl;
+
+    private boolean isPrivate;
 }

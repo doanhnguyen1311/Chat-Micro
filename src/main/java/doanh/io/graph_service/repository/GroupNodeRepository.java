@@ -16,10 +16,11 @@ public interface GroupNodeRepository extends Neo4jRepository<GroupNode, Long> {
             MERGE (g:Group {id: $id})
             SET g.name = $name,
                 g.type = $type,
-                g.avatarUrl = $avatarUrl
+                g.avatarUrl = $avatarUrl,
+                g.isPrivate = $isPrivate
             RETURN g
             """)
-    GroupNode createOrUpdateGroupNode(Long id, String name, String type, String avatarUrl);
+    GroupNode createOrUpdateGroupNode(Long id, String name, String type, String avatarUrl, Boolean isPrivate);
 
 
     // Tìm nhóm theo tên
@@ -60,4 +61,18 @@ public interface GroupNodeRepository extends Neo4jRepository<GroupNode, Long> {
         RETURN g
         """)
     void addUserToGroup(String userId, Long groupId);
+
+    @Query("""
+        MATCH (u:User {id: $userId}), (g:Group {id: $groupId})
+        MERGE (u)-[:MEMBER_OF]->(g)
+        RETURN count(g) > 0
+        """)
+    boolean addUserToGroupPolicy(String userId, Long groupId);
+
+    @Query("""
+        MATCH (u:User {id: $userId})-[r:MEMBER_OF]->(g:Group {id: $groupId})
+        DELETE r
+        RETURN COUNT(r) > 0
+    """)
+    boolean leaveGroup(Long groupId, String userId);
 }
