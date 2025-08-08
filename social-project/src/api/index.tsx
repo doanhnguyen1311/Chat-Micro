@@ -1,4 +1,10 @@
 export const BaseURL = 'https://com.delichat.online';
 
-export const AuthAPI = `${BaseURL}/api/v1/auth`;
-export const AccountAPI = `${BaseURL}/api/v1/accounts`;
+export const AuthAPI = `${BaseURL}/auth`;
+export const AccountAPI = `${AuthAPI}/accounts`;
+
+// Info
+export const GetInfoAPI = `${AuthAPI}/my-info`;
+
+// Graph
+export const GraphAPI = `${AuthAPI}/graph`;
