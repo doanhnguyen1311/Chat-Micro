@@ -67,7 +67,7 @@ public class AccountService {
                         .data(accountDTOS)
                         .success(true)
                         .statusCode(200)
-                        .message("Get All Accounts from Redis (binary)")
+                        .message("Get All Accounts from Redis")
                         .build();
             }
         } catch (Exception e) {
