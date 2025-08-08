@@ -33,6 +33,9 @@ jobs:
             echo "Tìm và dừng tiến trình chiếm cổng 8080"
             sudo fuser -k 8080/tcp || true
             
+            echo "Build project sạch sẽ trước khi chạy"
+            mvn clean package
+            
             echo "Chạy backend Spring Boot với mvn spring-boot:run ở background"
             nohup mvn spring-boot:run > output.log 2>&1 &
             disown
