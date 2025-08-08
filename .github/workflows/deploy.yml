@@ -1,0 +1,43 @@
+name: Deploy Authentication Service
+
+on:
+  push:
+    branches:
+      - service/authentication-service
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.DAWS_VPS_HOST }}
+          username: ${{ secrets.DAWS_VPS_USER }}
+          key: ${{ secrets.DAWS_VPS_KEY }}
+          port: 22
+
+          script: |
+            set -e
+            
+            echo "Đi vào thư mục project backend"
+            cd ~/SpringMicroservice/authentication-service/Chat-Micro
+            
+            echo "Cập nhật code nhánh service/authentication-service"
+            git pull origin service/authentication-service --force
+            
+            echo "Tìm và dừng tiến trình chiếm cổng 8081"
+            sudo fuser -k 8081/tcp || true
+            
+            echo "Build project sạch sẽ trước khi chạy (bỏ qua test)"
+            mvn clean package -DskipTests
+            
+            echo "Chạy backend Spring Boot với mvn spring-boot:run ở background"
+            nohup mvn spring-boot:run > output.log 2>&1 &
+            disown
+
+            echo "✅ Deploy backend authentication-service hoàn tất!"

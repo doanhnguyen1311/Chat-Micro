@@ -422,7 +422,7 @@ public class AuthenticationService {
         return APIResponse.<AuthenticatedResponse>builder()
                 .success(true)
                 .statusCode(200)
-                .message("Login success!")
+                .message("Login successful!")
                 .data(AuthenticatedResponse.builder()
                         .isAuthentication(true)
                         .token(token)
