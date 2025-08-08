@@ -1,43 +1,111 @@
 version: '3.8'
 
+networks:
+  net:
+    driver: bridge
+
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: account-service
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_NAME: account_service
+      SERVER_PORT: 8080
+
+      # MySQ
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_URL: jdbc:mysql://mysql:3306/micro_identity?createDatabaseIfNotExist=true
+
+      # RabbitMQ
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: guest
+      RABBITMQ_PASSWORD: guest
+      RABBITMQ_REPLY_TIMEOUT: 3000
+
+      # Swagger
+      SWAGGER_PATH: /swagger-ui.html
+
+      # gRPC
+      GRPC_PORT: 9090
+      GRPC_ACCOUNT_ADDRESS: static://localhost:9090
+      GRPC_NEGOTIATION_TYPE: plaintext
+      GRPC_REFLECTION: "true"
+
+      # Redis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
+      # Neo4j
+      NEO4J_URI: bolt://neo4j:7687
+      NEO4J_USERNAME: neo4j
+      NEO4J_PASSWORD: 12345678
+
+
+    depends_on:
+      - mysql
+      - redis
+      - neo4j
+      - rabbitmq
+    networks:
+      - net
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: micro_identity
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - net
+    restart: unless-stopped
+
   neo4j:
     image: neo4j:5
     environment:
       NEO4J_AUTH: neo4j/12345678
     ports:
-      - "7474:7474"  # HTTP UI
-      - "7687:7687"  # Bolt protocol
+      - "7474:7474"
+      - "7687:7687"
     volumes:
       - neo4j_data:/data
+    networks:
+      - net
+    restart: unless-stopped
 
   redis:
     image: redis:alpine
     ports:
       - "6379:6379"
+    networks:
+      - net
+    restart: unless-stopped
 
   rabbitmq:
     image: rabbitmq:3-management
     ports:
-      - "5672:5672"     # AMQP protocol (ứng dụng dùng)
-      - "15672:15672"   # UI Web quản lý
+      - "5672:5672"
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
-      
-  mysql:
-    image: mysql:8
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: account_service
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
+    networks:
+      - net
+    restart: unless-stopped
 
 volumes:
   mysql_data:
   neo4j_data:
   rabbitmq_data:
+
