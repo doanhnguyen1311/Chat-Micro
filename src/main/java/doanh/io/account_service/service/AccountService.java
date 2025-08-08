@@ -56,7 +56,7 @@ public class AccountService {
         try {
             byte[] cachedBytes = (byte[]) redisTemplate.opsForValue().get(redisKey);
             if (cachedBytes != null) {
-                log.info("✅ Lấy danh sách tài khoản từ Redis Cache (binary)");
+                log.info("✅ Lấy danh sách tài khoản từ Redis Cache");
 
                 accountDTOS = objectMapper.readValue(
                         cachedBytes,
