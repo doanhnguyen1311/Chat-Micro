@@ -102,7 +102,7 @@ public class GroupController {
         }
         return APIResponse.<Group>builder()
                 .code(HttpStatus.CREATED.value())
-                .message("Group created successfully")
+                .message("Group created successful!")
                 .data(createdGroup)
                 .success(true
                 )
