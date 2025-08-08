@@ -21,7 +21,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("")
 @Slf4j
 public class AuthenticationController {
 
@@ -67,7 +67,9 @@ public class AuthenticationController {
             token.setPath("/");
             token.setMaxAge(3600 * 24 * 2); // 2 ngày
 
-            Cookie userId = new Cookie("userId", userIdFromCookie(response.getData().getToken()));
+            var userIdEncode = authenticationService.encryptUserId(userIdFromCookie(response.getData().getToken()));
+
+            Cookie userId = new Cookie("userId", userIdEncode);
             userId.setHttpOnly(true);
             userId.setSecure(true);
             userId.setPath("/");
