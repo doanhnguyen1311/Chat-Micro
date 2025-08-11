@@ -4,6 +4,28 @@ import styles from "../index.module.css";
 
 const EditProfile: React.FC = () => {
     const { user } = useAuth();
+    console.log(user);
+    
+    // Giả sử userData.birthday = "2003-02-07"
+    const birthday = user?.profile.birthday;
+    let day: number = 0;
+    let month: string = "";
+    let year: number = 0;
+
+    if (birthday) {
+        const dateObj = new Date(birthday);
+        day = dateObj.getDate();
+        month = dateObj.toLocaleString("en-US", { month: "long" });
+        year = dateObj.getFullYear();
+    }
+
+    // Mảng ngày, tháng, năm
+    const days = Array.from({ length: 31 }, (_, i) => i + 1);
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
 
     return (
         <div>
@@ -26,9 +48,26 @@ const EditProfile: React.FC = () => {
                     <div className={styles.fieldSet}>
                         <label className={styles.labelEdit}>Date of Birth <span className={styles.required}>(required)</span></label>
                         <div className={styles.dobGroup}>
-                            <select defaultValue="7"><option>7</option></select>
-                            <select defaultValue="February"><option>February</option></select>
-                            <select defaultValue="1992"><option>1992</option></select>
+                            <select defaultValue={day || ""}>
+                                <option value="">Day</option>
+                                {days.map(d => (
+                                    <option key={d} value={d}>{d}</option>
+                                ))}
+                            </select>
+
+                            <select defaultValue={month || ""}>
+                                <option value="">Month</option>
+                                {months.map(m => (
+                                    <option key={m} value={m}>{m}</option>
+                                ))}
+                            </select>
+
+                            <select defaultValue={year || ""}>
+                                <option value="">Year</option>
+                                {years.map(y => (
+                                    <option key={y} value={y}>{y}</option>
+                                ))}
+                            </select>
                         </div>
                         <div className={styles.note}>This field may be seen by: <strong>Only Me</strong></div>
                     </div>
@@ -39,8 +78,22 @@ const EditProfile: React.FC = () => {
                     <div className={styles.fieldSet}>
                         <label className={styles.labelEdit} style={{marginTop: '6px'}}>Sex <span className={styles.required}>(required)</span></label>
                         <div className={styles.radioGroup}>
-                            <label><input type="radio" name="sex" defaultChecked /> Male</label>
-                            <label><input type="radio" name="sex" /> Female</label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="sex"
+                                    value="male"
+                                    defaultChecked={user?.profile.gender === "male"}
+                                /> Male
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="sex"
+                                    value="female"
+                                    defaultChecked={user?.profile.gender === "female"}
+                                /> Female
+                            </label>
                         </div>
                         <div className={styles.note}>This field may be seen by: <strong>Only Me</strong></div>
                     </div>

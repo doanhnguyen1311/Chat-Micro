@@ -29,7 +29,7 @@ const ViewProfile: React.FC = () => {
                         <td className={styles.value}>{user?.profile.location}</td>
                     </tr>
                     <tr>
-                        <td className={styles.label}>Country</td>
+                        <td className={styles.label}>Website</td>
                         <td className={`${styles.value} ${styles.highlight}`}>{user?.profile.website}</td>
                     </tr>
                 </tbody>
