@@ -1,7 +1,10 @@
 import React from "react";
+import { useAuth } from "../../../hooks/useAuth";
 import styles from "../index.module.css";
 
 const EditProfile: React.FC = () => {
+    const { user } = useAuth();
+
     return (
         <div>
             <h2 className={styles.title}>Edit Profile</h2>
@@ -13,7 +16,7 @@ const EditProfile: React.FC = () => {
                 <div className={styles.formGroup}>
                     <div className={styles.fieldSet}>
                         <label className={styles.labelEdit}>Name <span className={styles.required}>(required)</span></label>
-                        <input type="text" className={styles.input} defaultValue="Joseph" />
+                        <input type="text" className={styles.input} defaultValue={user?.profile.fullName} />
                         <div className={styles.note}>This field may be seen by: <strong>Everyone</strong></div>
                     </div>
                 </div>
@@ -47,7 +50,7 @@ const EditProfile: React.FC = () => {
                 <div className={styles.formGroup}>
                     <div className={styles.fieldSet}>
                         <label className={styles.labelEdit}>City <span className={styles.required}>(required)</span></label>
-                        <input type="text" className={styles.input} defaultValue="aaa" />
+                        <input type="text" className={styles.input} defaultValue={user?.profile.location} />
                         <div className={styles.note}>This field may be seen by: <strong>Only Me</strong></div>
                     </div>
                 </div>
@@ -56,7 +59,7 @@ const EditProfile: React.FC = () => {
                 <div className={styles.formGroup}>
                     <div className={styles.fieldSet}>
                         <label className={styles.labelEdit}>Country <span className={styles.required}>(required)</span></label>
-                        <select className={styles.select} defaultValue="Armenia">
+                        <select className={styles.select} defaultValue={user?.profile.website}>
                             <option>Armenia</option>
                         </select>
                         <div className={styles.note}>This field may be seen by: <strong>Only Me</strong></div>

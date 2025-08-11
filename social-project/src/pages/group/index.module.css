@@ -5,19 +5,33 @@
 .headerTop {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     margin-bottom: 24px;
     border-bottom: 1px solid #e7edf2;
+    gap: 8px;
+}
+
+.titleActive {
+    font-size: 14px;
+    font-weight: 600;
+    color: #8224e3;
+    border-bottom: 2px solid #8224e3;
+    margin: 0;
+    padding: 12px 8px;
+    cursor: pointer;
 }
 
 .title {
     font-size: 14px;
-    font-weight: 600;
-    color: #7c3aed;
-    border-bottom: 2px solid #7c3aed;
+    font-weight: 400;
+    color: #29292d;
     margin: 0;
     padding: 12px 8px;
     cursor: pointer;
+}
+
+.title:hover {
+    color: #8224e3;
+    transition: all 0.5s ease;
 }
 
 .headerBottom {
@@ -46,7 +60,7 @@
 }
 
 .searchInput:focus {
-    border-color: #7c3aed;
+    border-color: #8224e3;
     box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
 }
 

@@ -7,6 +7,7 @@ import styles from './index.module.css';
 
 const GroupPage: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
+    const [activeTab, setActiveTab] = useState<"allgroup" | "mygroup">("allgroup");
 
     const sampleGroups: Group[] = [
         {
@@ -99,8 +100,17 @@ const GroupPage: React.FC = () => {
             {/* Header */}
             <div className={styles.header}>
                 <div className={styles.headerTop}>
-                    <h1 className={styles.title}>
+                    <h1
+                        className={`${activeTab === "allgroup" ? styles.titleActive : styles.title}`}
+                        onClick={() => setActiveTab("allgroup")}
+                    >
                         All Groups
+                    </h1>
+                    <h1 
+                        className={`${activeTab === "mygroup" ? styles.titleActive : styles.title}`}
+                        onClick={() => setActiveTab("mygroup")}    
+                    >
+                        My Groups
                     </h1>
                 </div>
                 
