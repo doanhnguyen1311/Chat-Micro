@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { EllipsisVertical, ThumbsUp, CornerUpLeft, MessageCircleMore } from 'lucide-react';
 import image from '../../../assets/imgs/tindepchai.jpg';
-import avatar from '../../../assets/imgs/avagroup1.jpg';
 import like from '../../../assets/imgs/like.jpg';
 import love from '../../../assets/imgs/love.png';
 import haha from '../../../assets/imgs/haha.jpg';
@@ -9,6 +8,7 @@ import care from '../../../assets/imgs/care.jpg';
 import wow from '../../../assets/imgs/wow.jpg';
 import sad from '../../../assets/imgs/sad.jpg';
 import angry from '../../../assets/imgs/angry.jpg';
+import { useAuth } from '../../../hooks/useAuth';
 import styles from '../index.module.css';
 
 const reactions = [
@@ -22,6 +22,8 @@ const reactions = [
 ];
 
 const Activity: React.FC = () => {
+    const { user } = useAuth();
+
     const [showMenu, setShowMenu] = useState(false);
 
     const menuRef = useRef<HTMLDivElement>(null);
@@ -80,7 +82,7 @@ const Activity: React.FC = () => {
                 <li className={styles.activity_item}>
                     <div className={styles.activity_avatar}>
                         <img
-                            src={avatar}
+                            src={user?.profile.avatarUrl}
                             alt="avatar"
                             className={styles.item_avatar}
                         />
@@ -88,7 +90,7 @@ const Activity: React.FC = () => {
                     <div className={styles.activity_content}>
                         <div className={styles.activity_header} >
                             <div className={styles.post_meta}>
-                                <p><span>Joseph</span> posted an update</p>
+                                <p><span>{user?.username}</span> posted an update</p>
                                 <div className={styles.date}> 2 days, 15 hours ago</div>
                             </div>
                             <div 
@@ -196,7 +198,7 @@ const Activity: React.FC = () => {
                                 <div className={styles.comment_editor}>
                                     <div>
                                         <img
-                                            src={avatar}
+                                            src={user?.profile.avatarUrl}
                                             alt="avatar"
                                             className={styles.comment_avatar}
                                         />

@@ -1,17 +1,19 @@
 import type React from "react";
 import { Search, UserRoundPlus, BellRing } from "lucide-react";
-import styles from "./index.module.css";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import styles from "./index.module.css";
 
 const Header: React.FC = () => {
+    const navigate = useNavigate();
+    const { user } = useAuth();
     const [ showFriendRequest, setShowFriendRequest ] = useState(false);
     const [ showNotifications, setShowNotifications ] = useState(false);
     const [ showUserActions, setShowUserActions ] = useState(false);
     const friendRef = useRef<HTMLDivElement>(null);
     const notiRef = useRef<HTMLDivElement>(null);
     const userMenuRef = useRef<HTMLDivElement>(null);
-    const navigate = useNavigate();
 
     const userMenuItems = [
         { label: "Profile", path: "/my-profile" },
@@ -110,11 +112,11 @@ const Header: React.FC = () => {
                         onClick={() => setShowUserActions((prev) => !prev)}
                     >
                         <img
-                            src="https://randomuser.me/api/portraits/women/44.jpg"
-                            alt="Joseph"
+                            src={user?.profile.avatarUrl}
+                            alt="User"
                             className={styles.avatar}
                         />
-                        <p className="fs-14">@user</p>
+                        <p className="fs-14">@{user?.username}</p>
                     </div>
 
                     {showUserActions && (

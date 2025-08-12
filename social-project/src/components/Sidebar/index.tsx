@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { UserRound, Play, UsersRound, MonitorDot } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import logo from '../../assets/imgs/logo.png';
+import { useAuth } from "../../hooks/useAuth";
 import styles from "./index.module.css";
 
 interface SidebarItem {
@@ -24,6 +25,7 @@ const sidebarItems: SidebarItem[] = [
 
 const Sidebar: React.FC<SidebarProps> = ({ className, onNavigate }) => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [activeItem, setActiveItem] = useState<string>("Feeds");
 
   const handleItemClick = (item: SidebarItem): void => {
@@ -45,8 +47,8 @@ const Sidebar: React.FC<SidebarProps> = ({ className, onNavigate }) => {
         </div>
         <div className={styles.profileCard}>
           <img
-            src="https://randomuser.me/api/portraits/women/44.jpg"
-            alt="Joseph"
+            src={user?.profile.avatarUrl}
+            alt="User"
             className={styles.avatar}
           />
           <h2>Joseph</h2>

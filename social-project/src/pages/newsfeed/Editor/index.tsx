@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { Paperclip } from 'lucide-react';
-import avatar from '../../../assets/imgs/avagroup1.jpg';
+import { useAuth } from '../../../hooks/useAuth';
 import styles from '../index.module.css';
 
 const Editor: React.FC = () => {
+
+    const { user } = useAuth();
+
     const [isExpanded, setIsExpanded] = useState(false);
+
     return (
         <div className={styles.editor}>
                 <div className={styles.container}>
                     <img
-                        src={avatar}
+                        src={user?.profile.avatarUrl}
                         alt="avatar"
                         className={styles.avatar}
                     />

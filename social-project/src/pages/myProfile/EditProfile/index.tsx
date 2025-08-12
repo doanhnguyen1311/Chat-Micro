@@ -83,7 +83,7 @@ const EditProfile: React.FC = () => {
                                     type="radio"
                                     name="sex"
                                     value="male"
-                                    defaultChecked={user?.profile.gender === "male"}
+                                    checked={user?.profile.gender === "male"}
                                 /> Male
                             </label>
                             <label>
@@ -91,7 +91,7 @@ const EditProfile: React.FC = () => {
                                     type="radio"
                                     name="sex"
                                     value="female"
-                                    defaultChecked={user?.profile.gender === "female"}
+                                    checked={user?.profile.gender === "female"}
                                 /> Female
                             </label>
                         </div>
