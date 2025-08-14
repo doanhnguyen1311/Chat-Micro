@@ -51,8 +51,8 @@ const Sidebar: React.FC<SidebarProps> = ({ className, onNavigate }) => {
             alt="User"
             className={styles.avatar}
           />
-          <h2>Joseph</h2>
-          <p className={`${styles.role} fs-12 mt-8`}>Member</p>
+          <h2>{user?.profile.fullName}</h2>
+          <p className={`${styles.role} fs-12 mt-8`}>@{user?.username}</p>
           <div className={styles.stats}>
             <div>
               <strong className="text-color fs-16">0</strong>

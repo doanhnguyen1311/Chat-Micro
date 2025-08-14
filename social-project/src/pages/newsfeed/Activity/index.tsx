@@ -115,7 +115,7 @@ const Activity: React.FC = () => {
                                 <ul className={styles.activity_media_list}>
                                     <li className={styles.media_list_item}>
                                         <div className={styles.media_item_thumbnail}>
-                                            <img src={image} alt='anh'/>
+                                            <img src={image} alt='Image'/>
                                         </div>
                                     </li>
                                 </ul>
@@ -171,7 +171,7 @@ const Activity: React.FC = () => {
                                 )}
                             </div>
                             <div className={styles.generic_button_comment}>
-                                <div 
+                                <div
                                     className='d-flex align-center gap-4px'
                                     onClick={() => setIsExpanded(true)}
                                 >

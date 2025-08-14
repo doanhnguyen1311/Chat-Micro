@@ -2,6 +2,7 @@ import type React from "react";
 import { Search, UserRoundPlus, BellRing } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { LogoutAPI } from "../../api";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "./index.module.css";
 
@@ -53,9 +54,31 @@ const Header: React.FC = () => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const handleNavigate = (path: string) => {
+    const handleNavigate = async (path: string) => {
         setShowUserActions(false);
-        navigate(path);
+
+        if (path === "/logout") {
+            try {
+                // Gọi API logout
+                const response = await fetch(LogoutAPI, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+    
+                if (response.ok) {
+                    // Chuyển về trang login
+                    navigate("/");
+                } else {
+                    console.error("Logout failed");
+                }
+            } catch (error) {
+                console.error("Error logging out:", error);
+            }
+        } else {
+            navigate(path);
+        }
     };
 
     return (
@@ -124,11 +147,11 @@ const Header: React.FC = () => {
                             <ul>
                                 {userMenuItems.map((item) => (
                                     <li
-                                    key={item.path}
-                                    className={styles.userDropdownItem}
-                                    onClick={() => handleNavigate(item.path)}
+                                        key={item.path}
+                                        className={styles.userDropdownItem}
+                                        onClick={() => handleNavigate(item.path)}
                                     >
-                                    {item.label}
+                                        {item.label}
                                     </li>
                                 ))}
                             </ul>
