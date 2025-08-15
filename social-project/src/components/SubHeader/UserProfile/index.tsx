@@ -2,7 +2,6 @@ import { useAuth } from '../../../hooks/useAuth';
 import styles from '../index.module.css';
 
 export default function UserProfile() {
-
     const { user } = useAuth();
 
     return (

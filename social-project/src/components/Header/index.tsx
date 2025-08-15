@@ -66,8 +66,10 @@ const Header: React.FC = () => {
                         "Content-Type": "application/json",
                     },
                 });
+
+                const result = await response.json();
     
-                if (response.ok) {
+                if (result.success) {
                     // Chuyển về trang login
                     navigate("/");
                 } else {
