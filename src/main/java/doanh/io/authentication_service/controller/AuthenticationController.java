@@ -156,8 +156,9 @@ public class AuthenticationController {
 
     @PostMapping("/logout")
     public ResponseEntity<APIResponse<?>> logout(
-            @CookieValue("accessToken") String accessToken,
-            @CookieValue("deviceId") String deviceId,
+            @CookieValue(value = "accessToken", required = false) String accessToken,
+            @CookieValue(value = "deviceId", required = false) String deviceId,
+            @CookieValue(value = "userId", required = false) String userIdCookie,
             HttpServletResponse response
     ) {
         try {
@@ -167,6 +168,7 @@ public class AuthenticationController {
             // Xóa cookie bằng cách set Max-Age = 0
             clearCookie("accessToken", response);
             clearCookie("deviceId", response);
+            clearCookie("userId", response);
 
             return ResponseEntity.ok(APIResponse.builder()
                     .success(true)

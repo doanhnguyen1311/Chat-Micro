@@ -30,7 +30,7 @@ public class SecurityConfig {
                         authorizeRequests.anyRequest().permitAll()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .logout(Customizer.withDefaults());
+                .logout(c -> c.disable());
 
         return http.build();
     }

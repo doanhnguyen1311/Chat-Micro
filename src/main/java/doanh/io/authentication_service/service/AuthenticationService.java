@@ -430,7 +430,6 @@ public class AuthenticationService {
                 .build();
     }
 
-
     public boolean isTokenExpiry(String token) {
         try {
             SignedJWT signedJWT = SignedJWT.parse(token);
