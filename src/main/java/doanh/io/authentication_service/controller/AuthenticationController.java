@@ -33,7 +33,7 @@ public class AuthenticationController {
 
         var userIdLeader = decodeRefreshToken.getJWTClaimsSet().getClaim("userId");
 
-        return (String)userIdLeader;
+        return (String) userIdLeader;
     }
 
 
@@ -96,9 +96,9 @@ public class AuthenticationController {
             String token = authenticationService.refreshToken(accessToken, deviceId);
             if (token != null) {
                 return ResponseEntity.ok(APIResponse.builder()
-                                .success(true)
-                                .data(token)
-                                .message("Refresh token expired")
+                        .success(true)
+                        .data(token)
+                        .message("Refresh token expired")
                         .build());
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -162,10 +162,17 @@ public class AuthenticationController {
             HttpServletResponse response
     ) {
         try {
-            String userId = userIdFromCookie(accessToken);
-            authenticationService.logout(userId, deviceId);
+            if (accessToken != null && !accessToken.isBlank()) {
+                try {
+                    String userId = userIdFromCookie(accessToken);
+                    authenticationService.logout(userId, deviceId);
+                } catch (Exception ex) {
+                    // Nếu token hỏng thì bỏ qua, vẫn logout mù
+                    log.warn("Invalid access token during logout: {}", ex.getMessage());
+                }
+            }
 
-            // Xóa cookie bằng cách set Max-Age = 0
+            // Xóa cookie bất kể có token hay không
             clearCookie("accessToken", response);
             clearCookie("deviceId", response);
             clearCookie("userId", response);
@@ -177,7 +184,7 @@ public class AuthenticationController {
                     .build());
 
         } catch (Exception e) {
-            log.error("Error during logout for user {}: {}", e.getMessage());
+            log.error("Error during logout: {}", e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(APIResponse.builder()
                             .success(false)
@@ -186,6 +193,7 @@ public class AuthenticationController {
                             .build());
         }
     }
+
 
     private void clearCookie(String name, HttpServletResponse response) {
         ResponseCookie cookie = ResponseCookie.from(name, "")
@@ -200,7 +208,7 @@ public class AuthenticationController {
 
     @PostMapping("/logout-all-device")
     public ResponseEntity<APIResponse<?>> logoutAllDevice(@CookieValue(value = "accessToken", required = false) String accessToken, @CookieValue(value = "deviceId", required = false) String deviceId) {
-        try{
+        try {
             String userId = userIdFromCookie(accessToken);
 
             var res = authenticationService.logoutAllDevices(userId, deviceId);
@@ -214,8 +222,7 @@ public class AuthenticationController {
             );
 
             return ResponseEntity.ok(res);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Error during logout all device: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(APIResponse.builder()
@@ -245,17 +252,17 @@ public class AuthenticationController {
 
                 responseCookie.addCookie(deviceIdCookie);
             }
-            if(accessToken == null || accessToken.isEmpty() || accessToken == "") {
+            if (accessToken == null || accessToken.isEmpty() || accessToken == "") {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(APIResponse.builder()
-                                .data(null)
-                                .success(false)
-                                .message("Invalid access token")
+                        .data(null)
+                        .success(false)
+                        .message("Invalid access token")
                         .build());
             }
 
             APIResponse<AuthenticatedResponse> res = authenticationService.introspect(accessToken, deviceId);
 
-            if(!res.isSuccess()){
+            if (!res.isSuccess()) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(res);
             }
 
@@ -281,7 +288,7 @@ public class AuthenticationController {
 
     @GetMapping("/get-device")
     public ResponseEntity<APIResponse<?>> getDevice(@CookieValue(value = "deviceId", required = false) String deviceId, HttpServletResponse responseCookie) {
-        if(deviceId == null || deviceId.isBlank()) {
+        if (deviceId == null || deviceId.isBlank()) {
             deviceId = UUID.randomUUID().toString();
             Cookie deviceIdCookie = new Cookie("deviceId", deviceId);
             deviceIdCookie.setHttpOnly(true);
