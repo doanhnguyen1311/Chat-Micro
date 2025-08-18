@@ -20,11 +20,11 @@
 
 .tab:hover {
     transition: .5s;
-    color: #8224e3;
+    color: var(--default-color);
 }
 
 .active {
-    color: #8224e3;
+    color: var(--default-color);
     font-weight: 600;
 }
 
@@ -35,7 +35,7 @@
     left: 0;
     height: 2px;
     width: 100%;
-    background-color: #8224e3;
+    background-color: var(--default-color);
 }
 
 .title {
@@ -86,7 +86,7 @@ table tbody tr td {
 }
 
 .highlight {
-    color: #8224e3;
+    color: var(--default-color);
 }
 
 .form {
@@ -154,7 +154,7 @@ table tbody tr td {
 
 .forgot:hover {
     text-decoration: underline;
-    color: #8224e3;
+    color: var(--default-color);
     cursor: pointer;
 }
 
@@ -192,7 +192,7 @@ table tbody tr td {
 }
 
 .changeLink {
-    color: #8224e3;
+    color: var(--default-color);
     margin-left: 5px;
     cursor: pointer;
     font-weight: 500;
@@ -200,13 +200,13 @@ table tbody tr td {
 
 .changeLink:hover {
     text-decoration: underline;
-    color: #8224e3;
+    color: var(--default-color);
 }
 
 .saveButton {
     width: 30%;
-    background-color: #8224e3;
-    background-image: linear-gradient(90deg, #8224e3 0, #a84aff 50%, #8224e3 100%);
+    background-color: var(--default-color);
+    background-image: linear-gradient(90deg, var(--default-color) 0, #a84aff 50%, var(--default-color) 100%);
     background-size: 200%;
     color: white;
     padding: .375rem 2rem;
@@ -219,16 +219,16 @@ table tbody tr td {
 }
 
 .saveButton:hover {
-    background-color: #8224e3;
+    background-color: var(--default-color);
     background-position: right center;
-    box-shadow: 0 2px 5px -2px #8224e3;
+    box-shadow: 0 2px 5px -2px var(--default-color);
     transition: all 750ms ease;
 }
 
 .infoBox {
     display: flex;
     gap: 8px;
-    border-top: 2px solid #8224e3 !important;
+    border-top: 2px solid var(--default-color) !important;
     background-color: #fff;
     padding: 1.5rem;
     position: relative;
@@ -240,8 +240,8 @@ table tbody tr td {
 .selectFile {
     width: 36%;
     background: none;
-    border: 1px solid #8224e3;
-    color: #8224e3;
+    border: 1px solid var(--default-color);
+    color: var(--default-color);
     padding: .375rem 2rem;
     min-height: 2.5rem;
     font-size: 14px;
@@ -252,30 +252,30 @@ table tbody tr td {
 }
 
 .selectFile:hover {
-    background-color: #8224e3;
+    background-color: var(--default-color);
     color: #fff;
     transition: all 750ms ease;
 }
 
 .seeIcon {
-    border: 1px solid #8224e3;
+    border: 1px solid var(--default-color);
     border-radius: 50%;
     padding: 8px;
-    color: #8224e3;
+    color: var(--default-color);
     transition: .5s;
 }
 
 .seeIcon:hover {
-    border: 1px solid #8224e3;
-    background-color: #8224e3;
+    border: 1px solid var(--default-color);
+    background-color: var(--default-color);
     color: #fff;
     cursor: pointer;
 }
 
 .cancelBtn {
     background: none;
-    border: 1px solid #8224e3;
-    color: #8224e3;
+    border: 1px solid var(--default-color);
+    color: var(--default-color);
     padding: .375rem 2rem;
     min-height: 2.5rem;
     font-size: 14px;
@@ -287,8 +287,8 @@ table tbody tr td {
 }
 
 .cancelBtn:hover {
-    border: 1px solid #8224e3;
-    background-color: #8224e3;
+    border: 1px solid var(--default-color);
+    background-color: var(--default-color);
     color: #fff;
     cursor: pointer;
 }

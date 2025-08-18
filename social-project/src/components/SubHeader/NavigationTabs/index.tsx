@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 
 export default function NavigationTabs() {
     const [showMenu, setShowMenu] = useState(false);
+    
     return (
         <div className={styles.navigationTabs}>
             <TabItem label="Activity" icon={<MonitorDot size={24} />} to="/my-activity" />

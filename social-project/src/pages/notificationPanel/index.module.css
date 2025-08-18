@@ -26,11 +26,11 @@
 
 .tab:hover {
     transition: .5s;
-    color: #8224e3;
+    color: var(--default-color);
 }
 
 .active {
-    color: #8224e3;
+    color: var(--default-color);
     font-weight: 600;
 }
 
@@ -41,7 +41,7 @@
     left: 0;
     height: 2px;
     width: 100%;
-    background-color: #8224e3;
+    background-color: var(--default-color);
 }
 
 .filter {
@@ -96,7 +96,7 @@
 }
 
 .message {
-    color: #8224e3;
+    color: var(--default-color);
     cursor: pointer;
 }
 

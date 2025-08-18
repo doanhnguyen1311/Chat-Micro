@@ -20,11 +20,11 @@
 
 .tab:hover {
     transition: .5s;
-    color: #8224e3;
+    color: var(--default-color);
 }
 
 .active {
-    color: #8224e3;
+    color: var(--default-color);
     font-weight: 600;
 }
 
@@ -35,7 +35,7 @@
     left: 0;
     height: 2px;
     width: 100%;
-    background-color: #8224e3;
+    background-color: var(--default-color);
 }
 
 .selectContainer {
@@ -64,7 +64,7 @@
 
 .messages {
     display: flex;
-    border-top: 2px solid #8224e3 !important;
+    border-top: 2px solid var(--default-color) !important;
     background-color: #fff;
     padding: 1.5rem;
     margin: 1rem 0;
@@ -75,7 +75,7 @@
 }
 
 .icon {
-    color: #8224e3;
+    color: var(--default-color);
     margin-right: .375rem;
 }
 

@@ -35,7 +35,9 @@ const groups: ChatGroup[] = [
 
 const MessengerSidebar: React.FC = () => {
   const [tab, setTab] = useState<"friends" | "groups">("groups");
+  
   const [collapsed, setCollapsed] = useState(true);
+
   const [activeChats, setActiveChats] = useState<ChatGroup[]>([]);
 
   const openChat = (group: ChatGroup) => {

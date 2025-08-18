@@ -22,6 +22,7 @@
     background: transparent;
     margin: 0 auto 0.5rem;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .logo h1 {
@@ -45,6 +46,7 @@
     height: 64px;
     border-radius: 50%;
     margin-bottom: 0.5rem;
+    cursor: pointer;
 }
 
 .profileCard h2 {
@@ -88,10 +90,10 @@
 }
 
 .menuItem:hover {
-    color: #6a0dad;
+    color: #8224e3;
 }
 
 .active {
-    color: #6a0dad;
+    color: #8224e3;
     font-weight: bold;
 }

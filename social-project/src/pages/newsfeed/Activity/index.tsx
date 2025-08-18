@@ -90,7 +90,7 @@ const Activity: React.FC = () => {
                     <div className={styles.activity_content}>
                         <div className={styles.activity_header} >
                             <div className={styles.post_meta}>
-                                <p><span>{user?.username}</span> posted an update</p>
+                                <p><span className='cursor-pointer'>{user?.username}</span> posted an update</p>
                                 <div className={styles.date}> 2 days, 15 hours ago</div>
                             </div>
                             <div 

@@ -18,7 +18,7 @@
 .friendCount, .groupsCount {
     font-weight: 700;
     font-size: 1rem;
-    color: #8224e3;
+    color: var(--default-color);
 }
 
 .title {
@@ -44,7 +44,7 @@
 
 .widgetTitle::after {
     content: "";
-    background: #8224e3;
+    background: var(--default-color);
     height: 2.2px;
     width: 40px;
     position: absolute;

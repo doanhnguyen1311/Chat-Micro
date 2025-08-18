@@ -13,8 +13,8 @@
 .title {
     font-size: 14px;
     font-weight: 600;
-    color: #7c3aed;
-    border-bottom: 2px solid #7c3aed;
+    color: var(--default-color);
+    border-bottom: 2px solid var(--default-color);
     margin: 0;
     padding: 12px 8px;
     cursor: pointer;
@@ -44,8 +44,8 @@
 }
 
 .searchButton {
-    background-color: #8224e3;
-    background-image: linear-gradient(90deg, #8224e3 0, #a84aff 50%, #8224e3 100%);
+    background-color: var(--default-color);
+    background-image: linear-gradient(90deg, var(--default-color) 0, #a84aff 50%, var(--default-color) 100%);
     background-size: 200%;
     color: white;
     border: none;
@@ -59,9 +59,9 @@
 }
 
 .searchButton:hover {
-    background-color: #8224e3;
+    background-color: var(--default-color);
     background-position: right center;
-    box-shadow: 0 2px 5px -2px #8224e3;
+    box-shadow: 0 2px 5px -2px var(--default-color);
     transition: all 750ms ease;
 }
 
