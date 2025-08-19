@@ -61,9 +61,9 @@
 }
 
 .active {
-    color: #8224e3;
+    color: var(--default-color);
     font-weight: 500;
-    border-bottom: 2px solid #8224e3;
+    border-bottom: 2px solid var(--default-color);
 }
 
 .searchWrapper {

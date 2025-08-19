@@ -35,6 +35,12 @@
     background: rgba( 255, 255, 255, 0.8 );
 }
 
+.avatar:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
 .userInfo {
     display: flex;
     flex-direction: column;

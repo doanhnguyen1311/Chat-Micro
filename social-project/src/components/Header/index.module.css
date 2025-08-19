@@ -58,8 +58,8 @@
 .allRequestsButton {
     width: 100%;
     background: none;
-    border: 1px solid #8224e3;
-    color: #8224e3;
+    border: 1px solid var(--default-color);
+    color: var(--default-color);
     padding: .375rem 2rem;
     min-height: 2.5rem;
     font-size: 14px;
@@ -70,7 +70,7 @@
 }
 
 .allRequestsButton:hover {
-    background-color: #8224e3;
+    background-color: var(--default-color);
     color: #fff;
     transition: all 750ms ease;
 }
@@ -95,7 +95,7 @@
 }
 
 .user:hover {
-    color: #8224e3;
+    color: var(--default-color);
 }
 
 .avatar {

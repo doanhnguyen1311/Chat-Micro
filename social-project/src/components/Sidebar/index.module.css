@@ -90,10 +90,10 @@
 }
 
 .menuItem:hover {
-    color: #8224e3;
+    color: var(--default-color);
 }
 
 .active {
-    color: #8224e3;
+    color: var(--default-color);
     font-weight: bold;
 }
