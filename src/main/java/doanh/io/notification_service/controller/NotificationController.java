@@ -66,7 +66,7 @@ public class NotificationController {
             List<Notification> notifications = notificationService.getUnreadNotifications(userId);
             return APIResponse.builder()
                     .success(true)
-                    .message("Unread notifications fetched successfully")
+                    .message("Lấy danh sách thông báo chưa đọc thành công!")
                     .data(notifications)
                     .statusCode(200)
                     .build();
