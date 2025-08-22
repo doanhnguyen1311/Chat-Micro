@@ -1,0 +1,224 @@
+.container {
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #e7edf2;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ccc;
+    padding: 220px 148px 20px 400px;
+    position: relative;
+}
+
+.profileSection {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.avatarContainer {
+    position: absolute;
+    left: 11.6%;
+    bottom: -76px;
+}
+
+.avatar {
+    width: 197px;
+    height: 197px;
+    margin-bottom: 0.75rem;
+    border-radius: 16px;
+    object-fit: cover;
+    border: solid 2px #FFF;
+    background: rgba( 255, 255, 255, 0.8 );
+}
+
+.avatar:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.userMeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.userTag {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #FFF;
+    text-rendering: optimizelegibility;
+    text-shadow: 0px 0px 3px rgba( 0, 0, 0, 0.8 );
+}
+
+.userActive {
+    font-size: 12px;
+    color: #FFF;
+}
+
+.userName {
+    font-size: 20px;
+    font-weight: 700;
+    color: #4f515b;
+    text-align: center;
+    width: 200px;
+}
+
+.actionButtons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.actionButton {
+    background: rgba(255,255,255,.2);
+    border: 1px solid rgba(0,0,0,0);
+    color: #fff;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    text-shadow: 0px 0px 3px rgba(0,0,0,.6);
+    box-shadow: none;
+    border-radius: 30px;
+    min-height: 2.5rem;
+}
+
+.actionButton:hover {
+    background: rgba(255,255,255,.3);
+    border-color: var(--default-color);
+    color: #fff;
+    transition: all 750ms ease;
+}
+
+.navigationTabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 1rem 4rem 1rem 0;
+}
+
+.tabItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 8px;
+    width: 70px;
+    border-radius: 12px;
+    position: relative;
+}
+
+.tabItemActive {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px;
+    background: linear-gradient(135deg, #a84aff 0%, #7d1fde 75%);
+    width: 70px;
+    border-radius: 12px;
+    color: #fff;
+    box-shadow: 0 10px 20px -8px rgba(58,46,68,.7);
+    position: relative;
+}
+
+.tabIcon {
+    padding: 12px;
+    border-radius: 16px;
+    transition: background-color 0.2s;
+    position: relative;
+    color: #6b7280;
+}
+
+.tabIconActive {
+    padding: 12px;
+    color: white;
+}
+
+.tabLabel {
+    font-size: 14px;
+    color: #6b7280;
+    transition: color 0.2s;
+}
+
+.tabLabelActive {
+    font-size: 14px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background-color: #8224e3;
+    color: white;
+    font-size: .5rem;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badgeActive {
+    position: absolute;
+    top: -10px;
+    right: -4px;
+    background-color: #fff;
+    color: #838397;
+    font-size: .5rem;
+    border-radius: 12px;
+    width: 50%;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu {
+    background-color: #fff;
+    border: 1px solid #e7edf2;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    width: 160px;
+    position: absolute;
+    bottom: -128px;
+    right: 16px;
+    z-index: 10;
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.menu_item {
+    padding: 12px 16px;
+    color: #222;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.menu_middle {
+    border-top: 1px solid #e7edf2;
+    border-bottom: 1px solid #e7edf2;
+}
+
+.menu_item:hover {
+    background-color: #f5f5f5;
+    color: #222;
+}

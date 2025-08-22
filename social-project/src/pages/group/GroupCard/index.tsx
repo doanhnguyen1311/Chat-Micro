@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../index.module.css';
+import { useNavigate } from 'react-router-dom';
 
 export interface GroupMember {
   id: number;
@@ -25,8 +26,14 @@ export interface GroupCardProps {
 }
 
 const GroupCard: React.FC<GroupCardProps> = ({ group, onJoinGroup }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/group/${group.id}/group-home`);
+  };
+
   return (
-    <div className={styles.groupCard}>
+    <div onClick={handleClick} className={styles.groupCard}>
       {/* Cover Image */}
       <div className={styles.coverImageContainer}>
         <img 

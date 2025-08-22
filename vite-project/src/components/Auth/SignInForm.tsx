@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SocialIcons from "./SocialIcon";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface LoginResponse {
     data: {
@@ -17,47 +17,48 @@ const SignInForm: React.FC = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
 
-        try {
-            const response = await fetch("https://auth.delichat.online/api/v1/auth/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username: email,
-                    password: password
-                })
-            });
+    //     try {
+    //         const response = await fetch("https://auth.delichat.online/api/v1/auth/login", {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json"
+    //             },
+    //             body: JSON.stringify({
+    //                 username: email,
+    //                 password: password
+    //             })
+    //         });
 
-            const data: LoginResponse = await response.json();
-            console.log(data);
+    //         const data: LoginResponse = await response.json();
+    //         console.log(data);
             
 
-            if (!response.ok || !data.success || !data.data.authentication) {
-                throw new Error(data.message || "Login failed");
-            }
+    //         if (!response.ok || !data.success || !data.data.authentication) {
+    //             throw new Error(data.message || "Login failed");
+    //         }
 
-            if (data.success) {
-                alert("Login successful!");
-                navigate('/chat');
-            }
+    //         if (data.success) {
+    //             alert("Login successful!");
+    //             navigate('/chat');
+    //         }
 
-        } catch (error) {
-            console.error("Login error:", error);
-            if (error instanceof Error) {
-                alert(`Login failed: ${error.message}`);
-            } else {
-                alert("Login failed: Unknown error");
-            }
-        }
-    }
+    //     } catch (error) {
+    //         console.error("Login error:", error);
+    //         if (error instanceof Error) {
+    //             alert(`Login failed: ${error.message}`);
+    //         } else {
+    //             alert("Login failed: Unknown error");
+    //         }
+    //     }
+    // }
 
     return (
         <div className="form-container sign-in">
-            <form onSubmit={handleSubmit}>
+            {/* onSubmit={handleSubmit} */}
+            <form >
                 <h1>Sign In</h1>
                 <SocialIcons />
                 <span>or use your email password</span>
@@ -76,7 +77,8 @@ const SignInForm: React.FC = () => {
                     required
                 />
                 <a href="#">Forget Your Password?</a>
-                <button type="submit">Sign In</button>
+                {/* <button type="submit">Sign In</button> */}
+                <Link to={"chat"}>Sign In</Link>
             </form>
         </div>
     );

@@ -14,6 +14,8 @@ import MyFriends from "../pages/myFriends";
 import MyGroups from "../pages/myGroups";
 import Settings from "../pages/settings";
 import NotificationPanel from "../pages/notificationPanel";
+import { GroupLayout } from "../layouts/GroupLayout";
+import GroupDetail from "../pages/groupDetail";
 
 const AppRoutes: FC = () => {
     return (
@@ -36,6 +38,9 @@ const AppRoutes: FC = () => {
                         <Route path="my-groups" element={<MyGroups />} />
                         <Route path="settings" element={<Settings />} />
                         <Route path="notifications" element={<NotificationPanel />} />
+                    </Route>
+                    <Route element={<GroupLayout />}>
+                        <Route path="group/:id/group-home" element={<GroupDetail />} />
                     </Route>
                 </Route>
             </Routes>
